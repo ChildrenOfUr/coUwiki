@@ -1,0 +1,8 @@
+name: couWiki
+dependencies:
+  browser: any
+  levenshtein: "^1.0.2"
+  transmit:
+    git:
+      url: https://github.com/ppvk/transmit.git
+      ref: 08864268a371c8740106c7ed91cf5c23c1427b78
