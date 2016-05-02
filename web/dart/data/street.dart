@@ -1,7 +1,7 @@
 part of coUwiki;
 
 class Street extends GameObject {
-	int hub;
+	String hubId;
 	List<GameObject> contents;
 	bool hidden;
 	bool broken;
@@ -12,16 +12,24 @@ class Street extends GameObject {
 	Street(
 		String id,
 		String name,
-		this.hub,
+		this.hubId,
 		this.hidden,
 		this.broken,
 		this.hasMailbox,
 		this.vendor,
 		this.shrine
-	) : super(id, name, "Street", "img/signpost.png");
+	) : super(Street, id, name, "Streets", "img/signpost.png");
 
 	DivElement toPage() {
 		DivElement parent = super.toPage();
+
+		parent.querySelector(".breadcrumb").append(
+			new LIElement()
+				..append(
+					new AnchorElement(href: "#${hub.hashUrl}")
+						..text = hub.name
+				)
+			);
 
 		if (hasMailbox) {
 			parent.append(makeAlert("info", "Mailbox"));
@@ -45,4 +53,6 @@ class Street extends GameObject {
 
 		return parent;
 	}
+
+	Hub get hub => Hub.find(hubId);
 }

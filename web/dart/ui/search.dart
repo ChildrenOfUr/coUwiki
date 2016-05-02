@@ -69,8 +69,8 @@ class Search {
 							)
 							..appendHtml(displayName)
 							..onClick.first.then((_) {
-								transmit(ACTION_OPENPAGE, "${category}/${object.id}");
 								closeTypeahead(true);
+								Page.display(object);
 							});
 
 						section.append(item);

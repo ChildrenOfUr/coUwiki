@@ -6,7 +6,6 @@ import "dart:html";
 import "dart:math";
 import "dart:js";
 import "package:levenshtein/levenshtein.dart";
-import "package:transmit/transmit.dart";
 import "API_KEYS.dart";
 
 part "common/globals.dart";
@@ -14,6 +13,7 @@ part "common/util.dart";
 part "data/data.dart";
 part "data/gameobject.dart";
 part "data/hub.dart";
+part "data/item.dart";
 part "data/street.dart";
 part "ui/page.dart";
 part "ui/search.dart";

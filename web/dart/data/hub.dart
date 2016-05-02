@@ -1,6 +1,12 @@
 part of coUwiki;
 
 class Hub extends GameObject {
+	static Hub find(String id) {
+		return data.dataset["hub"].singleWhere((Hub hub) {
+			return hub.id == id;
+		});
+	}
+
 	String music;
 	bool playersHaveLetters;
 	bool disableWeather;
@@ -15,7 +21,7 @@ class Hub extends GameObject {
 		this.disableWeather,
 		this.snowyWeather,
 		this.tripleJumping
-	) : super(id, name, "Region", "img/signpost.png");
+	) : super(Hub, id, name, "Regions", "img/signpost.png");
 
 	DivElement toPage() {
 		DivElement parent = super.toPage();
@@ -25,15 +31,15 @@ class Hub extends GameObject {
 		}
 
 		if (playersHaveLetters) {
-			parent.append(makeAlert("info", "You'll get a random letter above your head here. Gather some friends and make a word!"));
+			parent.append(makeAlert("info", "You'll get a random letter above your head here. Gather some friends and spell out a word!"));
 		}
 
 		if (disableWeather) {
-			parent.append(makeAlert("warning", "There's no weather."));
+			parent.append(makeAlert("warning", "There's a 0% chance of weather."));
 		}
 
 		if (snowyWeather) {
-			parent.append(makeAlert("warning", "It snows instead of rains."));
+			parent.append(makeAlert("warning", "When it's raining, it snows here."));
 		}
 
 		if (!tripleJumping) {

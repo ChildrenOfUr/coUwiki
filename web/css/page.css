@@ -14,6 +14,19 @@ textarea {
     outline: none;
 }
 
+/* Navbar */
+
 #nav-header {
     z-index: 1024;
+}
+
+.navbar-brand {
+    color: #4b2e4c !important;
+    font-weight: bold;
+}
+
+.navbar-brand img {
+    height: 100%;
+    width: auto;
+    margin-top: -5px;
 }

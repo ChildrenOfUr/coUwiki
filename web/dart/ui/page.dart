@@ -6,25 +6,31 @@ class Page {
 
 	/// One-time initialization
 	static void setupPages() {
-		// Go to any requested page
-		if (window.location.hash != "") {
-			Page.display(window.location.hash.substring(1));
+		void _navToHash() {
+			Page.display(window.location.hash.substring(1), true);
 		}
 
-		// Handle page requests
-		new Service([ACTION_OPENPAGE], (String id) {
-			window.location.hash = id;
-			Page.display(id);
+		// Go to any requested page
+		if (window.location.hash != "") {
+			_navToHash();
+		}
+
+		// Handle URL updates
+		window.onHashChange.listen((_) {
+			_navToHash();
 		});
 	}
 
 	/// Open a page
-	static void display(dynamic toDisplay) {
+	static void display(dynamic toDisplay, [bool fromHash = false]) {
 		GameObject object = (toDisplay is GameObject ? toDisplay : GameObject.find(toDisplay));
+
+		if (!fromHash) {
+			window.location.hash = object.hashUrl;
+		}
 
 		PAGE_CONTAINER
 			..children.clear()
-			..append(object.toPage())
-			..hidden = false;
+			..append(object.toPage());
 	}
 }
