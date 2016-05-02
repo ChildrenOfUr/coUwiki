@@ -15,6 +15,7 @@ part "data/gameobject.dart";
 part "data/hub.dart";
 part "data/item.dart";
 part "data/street.dart";
+part "ui/listpage.dart";
 part "ui/page.dart";
 part "ui/search.dart";
 part "ui/ui.dart";
@@ -22,5 +23,4 @@ part "ui/ui.dart";
 Future main() async {
 	data = await new Data().load.future;
 	ui = new UI();
-	Page.setupPages();
 }

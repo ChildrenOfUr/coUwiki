@@ -35,11 +35,26 @@ class Item extends GameObject {
 
 		parent.append(
 			new DivElement()
-				..classes = ["panel", "panel-default"]
+				..classes = ["row"]
 				..append(
 					new DivElement()
-						..classes = ["panel-body"]
-						..text = description
+						..classes = ["col-sm-3"]
+						..append(new ImageElement(src: iconUrl)
+							..classes = ["img-thumbnail"]
+						)
+
+				)
+				..append(
+					new DivElement()
+						..classes = ["col-sm-9", "panel", "panel-default"]
+						..append(
+							new DivElement()
+								..append(
+									new DivElement()
+										..classes = ["panel-body"]
+										..text = description
+								)
+						)
 				)
 		);
 

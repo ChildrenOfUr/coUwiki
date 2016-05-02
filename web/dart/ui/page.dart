@@ -23,14 +23,21 @@ class Page {
 
 	/// Open a page
 	static void display(dynamic toDisplay, [bool fromHash = false]) {
-		GameObject object = (toDisplay is GameObject ? toDisplay : GameObject.find(toDisplay));
+		Element element;
 
-		if (!fromHash) {
-			window.location.hash = object.hashUrl;
+		if (toDisplay is Element) {
+			element = toDisplay;
+		} else {
+			GameObject object = (toDisplay is GameObject ? toDisplay : GameObject.find(toDisplay));
+			element = object.toPage();
+
+			if (!fromHash) {
+				window.location.hash = object.hashUrl;
+			}
 		}
 
 		PAGE_CONTAINER
 			..children.clear()
-			..append(object.toPage());
+			..append(element);
 	}
 }

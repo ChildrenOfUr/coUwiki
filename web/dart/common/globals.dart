@@ -14,10 +14,6 @@ bool cacheCurrent() => LOCALSTORAGE["$CACHE_KEY date"] != null &&
 		DateTime.parse(LOCALSTORAGE["$CACHE_KEY date"])
 			.difference(new DateTime.now()).inDays < 7;
 
-// Transmit keys
-
-final String ACTION_OPENPAGE = "openPage";
-
 // Global objects
 
 Data data;

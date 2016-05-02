@@ -1,0 +1,27 @@
+.object-list .row {
+    margin-bottom: 10px;
+}
+
+.listed-object {
+    border-radius: 5px;
+    text-align: center;
+    height: 150px;
+    cursor: pointer;
+}
+
+.listed-object:hover {
+    opacity: 0.8;
+}
+
+.listed-object img {
+    display: inline-block;
+    height: 80px;
+    width: auto;
+    max-width: 90%;
+    margin-top: 10px;
+}
+
+.listed-object span {
+    display: block;
+    margin-top: 10px;
+}
