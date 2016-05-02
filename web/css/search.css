@@ -58,10 +58,12 @@
     text-shadow: 0 1px 0 #98a2a2;
 }
 
-.typeahead ul li img {
-    vertical-align: bottom;
+.typeahead ul li .img {
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
     float: left;
-    height: 40px;
     width: 40px;
-    margin: 5px 10px 5px 0;
+    height: 40px;
+    margin: 0px 10px 0 0;
 }

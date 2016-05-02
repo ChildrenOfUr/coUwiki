@@ -18,7 +18,7 @@ class Street extends GameObject {
 		this.hasMailbox,
 		this.vendor,
 		this.shrine
-	) : super(Street, id, name, "Streets", "img/signpost.png");
+	) : super(Street, id, name, null, "img/signpost.png");
 
 	DivElement toPage() {
 		DivElement parent = super.toPage();
@@ -36,7 +36,7 @@ class Street extends GameObject {
 		}
 
 		if (vendor != null) {
-			parent.append(makeAlert("success", "$vendor vendor"));
+			parent.append(makeAlert("success", "$vendor Vendor"));
 		}
 
 		if (shrine != null) {

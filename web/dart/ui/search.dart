@@ -64,8 +64,9 @@ class Search {
 
 						LIElement item = new LIElement()
 							..append(
-								new ImageElement()
-									..src = object.iconUrl
+								new DivElement()
+									..classes = ["img"]
+									..style.backgroundImage = "url(${object.iconUrl})"
 							)
 							..appendHtml(displayName)
 							..onClick.first.then((_) {

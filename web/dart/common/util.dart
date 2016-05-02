@@ -13,3 +13,11 @@ DivElement makeAlert(String type, String message) {
 		..classes = ["alert", "alert-$type"]
 		..text = message;
 }
+
+String plural(num amount) {
+	if (amount == 1) {
+		return "";
+	} else {
+		return "s";
+	}
+}

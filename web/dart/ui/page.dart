@@ -7,7 +7,16 @@ class Page {
 	/// One-time initialization
 	static void setupPages() {
 		void _navToHash() {
-			Page.display(window.location.hash.substring(1), true);
+			if (window.location.hash.toLowerCase().startsWith("#list")) {
+				List<String> parts = window.location.hash.split("/");
+				String type = parts[1];
+				String category = (parts.length > 2 ? parts[2] : null);
+				Page.display(new ListPage.filter(type, (GameObject object) {
+					return (category == null || object.category.toLowerCase() == category.toLowerCase());
+				}).toPage());
+			} else {
+				Page.display(window.location.hash.substring(1), true);
+			}
 		}
 
 		// Go to any requested page

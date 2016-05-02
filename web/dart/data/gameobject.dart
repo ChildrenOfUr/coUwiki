@@ -36,9 +36,22 @@ class GameObject {
 				..classes.add("breadcrumb")
 				..append(
 					new LIElement()
-						..text = category
+						..append(
+							new AnchorElement(href: "#list/${type.toString().toLowerCase()}")
+								..text = type.toString()
+						)
 				)
 		);
+
+		if (category != null) {
+			parent.querySelector(".breadcrumb").append(
+				new LIElement()
+					..append(
+						new AnchorElement(href: "#list/${type.toString().toLowerCase()}/${category.toLowerCase()}")
+							..text = category
+					)
+			);
+		}
 
 		return parent;
 	}

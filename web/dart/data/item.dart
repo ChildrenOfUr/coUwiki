@@ -28,46 +28,32 @@ class Item extends GameObject {
 	DivElement toPage() {
 		DivElement parent = super.toPage();
 
-		parent.querySelector(".breadcrumb").children.insert(0,
-			new LIElement()
-				..text = type.toString()
-		);
-
-		parent.append(
-			new DivElement()
-				..classes = ["row"]
-				..append(
-					new DivElement()
-						..classes = ["col-sm-3"]
-						..append(new ImageElement(src: iconUrl)
-							..classes = ["img-thumbnail"]
-						)
-
-				)
-				..append(
-					new DivElement()
-						..classes = ["col-sm-9", "panel", "panel-default"]
-						..append(
-							new DivElement()
-								..append(
-									new DivElement()
-										..classes = ["panel-body"]
-										..text = description
-								)
-						)
-				)
-		);
+		parent
+			..append(
+				new DivElement()
+					..classes = ["row", "item-header"]
+					..append(
+						new ImageElement(src: iconUrl)
+							..classes = ["col-sm-3", "img-responsive"]
+					)
+					..append(
+						new ParagraphElement()
+							..classes = ["col-sm-9", "lead"]
+							..text = description
+					)
+			)
+			..append(new HRElement());
 
 		if (price == 0) {
 			parent.append(makeAlert("warning", "This item is priceless"));
 		} else {
-			parent.append(makeAlert("warning", "Worth around $price currant${price == 1 ? "" : "s"}"));
+			parent.append(makeAlert("warning", "Worth around $price currant${plural(price)}"));
 		}
 
 		parent.append(makeAlert("info", "Can fit $stacksTo in a stack"));
 
 		if (isContainer) {
-			parent.append(makeAlert("success", "Can hold $subSlots item${subSlots == 1 ? "" : "s"}"));
+			parent.append(makeAlert("success", "Can hold $subSlots item${plural(subSlots)}"));
 		}
 
 		return parent;
