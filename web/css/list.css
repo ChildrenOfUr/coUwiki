@@ -7,10 +7,13 @@
     text-align: center;
     height: 150px;
     cursor: pointer;
+    color: inherit;
 }
 
 .listed-object:hover {
     opacity: 0.8;
+    text-decoration: none;
+    color: inherit;
 }
 
 .listed-object img {
