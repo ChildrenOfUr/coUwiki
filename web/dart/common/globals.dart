@@ -1,20 +1,22 @@
 part of coUwiki;
 
+// General constants
+
+final String SIGNPOST_IMG = "img/signpost.png";
+final String BLENDER_IMG = "img/blender.png";
+
 // Server connection
 
 final String SERVER_URL = "http://server.childrenofur.com:8181";
 
-// Local storage
-
-final String CACHE_KEY = "coUwiki_cache";
-
-final Storage LOCALSTORAGE = window.localStorage;
-
-bool cacheCurrent() => LOCALSTORAGE["$CACHE_KEY date"] != null &&
-		DateTime.parse(LOCALSTORAGE["$CACHE_KEY date"])
-			.difference(new DateTime.now()).inDays < 7;
-
 // Global objects
 
+Cache cache;
 Data data;
 UI ui;
+
+/// When we are updating the hash, don't trigger anything
+bool hashLock = false;
+
+/// Whether a page is requested
+bool hashExists() => window.location.hash.length > 1;

@@ -26,7 +26,7 @@ class Street extends GameObject {
 		parent.querySelector(".breadcrumb").append(
 			new LIElement()
 				..append(
-					new AnchorElement(href: "#${hub.hashUrl}")
+					new AnchorElement(href: hub.path.toString())
 						..text = hub.name
 				)
 			);

@@ -20,9 +20,7 @@ class Data {
 		await _loadStreets();
 		await _loadItems();
 
-		if (!cacheCurrent()) {
-			LOCALSTORAGE["$CACHE_KEY date"] = new DateTime.now().toString();
-		}
+		cache.updateDate();
 	}
 
 	Future _loadStreets() async {
@@ -31,11 +29,11 @@ class Data {
 
 		String json;
 		
-		if (cacheCurrent() && LOCALSTORAGE["$CACHE_KEY mapdata"] != null) {
-			json = LOCALSTORAGE["$CACHE_KEY mapdata"];
+		if (cache.dataCurrent("mapdata")) {
+			json = cache.getData("mapdata");
 		} else {
 			json = await HttpRequest.getString("$SERVER_URL/getMapData?token=$RS_TOKEN");
-			LOCALSTORAGE["$CACHE_KEY mapdata"] = json;
+			cache.setData("mapdata", json);
 		}
 
 		JSON.decode(json)["streets"].forEach((String streetName, Map<String, dynamic> streetData) {
@@ -68,11 +66,11 @@ class Data {
 		dataset["item"] = new List();
 		String json;
 
-		if (cacheCurrent() && LOCALSTORAGE["$CACHE_KEY items"] != null) {
-			json = LOCALSTORAGE["$CACHE_KEY items"];
+		if (cache.dataCurrent("items")) {
+			json = cache.getData("items");
 		} else {
 			json = await HttpRequest.getString("$SERVER_URL/getItems");
-			LOCALSTORAGE["$CACHE_KEY items"] = json;
+			cache.setData("items", json);
 		}
 
 		JSON.decode(json).forEach((Map<String, dynamic> itemData) {

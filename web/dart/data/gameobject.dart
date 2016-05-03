@@ -2,10 +2,9 @@ part of coUwiki;
 
 class GameObject {
 	static GameObject find(String url) {
-		String type = url.split("/")[0];
-		String id = url.split("/")[1];
-		return data.dataset[type].singleWhere((GameObject object) {
-			return (object.id == id);
+		ObjectPath path = new ObjectPath(url);
+		return data.dataset[path.type].singleWhere((GameObject object) {
+			return (object.id == path.id);
 		});
 	}
 
@@ -14,8 +13,11 @@ class GameObject {
 	String category;
 	String iconUrl;
 	Type type;
+	Function navigationHandler;
 
 	GameObject(this.type, this.id, this.name, this.category, this.iconUrl);
+
+	GameObject.fake(this.name, this.iconUrl, this.navigationHandler);
 
 	DivElement toPage() {
 		DivElement parent = new DivElement();
@@ -56,7 +58,11 @@ class GameObject {
 		return parent;
 	}
 
-	String get hashUrl {
-		return "${type.toString().toLowerCase()}/$id";
+	DivElement makeAlert(String type, String message) {
+		return new DivElement()
+			..classes = ["alert", "alert-$type"]
+			..text = message;
 	}
+
+	ObjectPath get path => new ObjectPath("${type.toString().toLowerCase()}/$id");
 }

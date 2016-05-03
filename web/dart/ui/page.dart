@@ -6,47 +6,52 @@ class Page {
 
 	/// One-time initialization
 	static void setupPages() {
-		void _navToHash() {
-			if (window.location.hash.toLowerCase().startsWith("#list")) {
-				List<String> parts = window.location.hash.split("/");
-				String type = parts[1];
-				String category = (parts.length > 2 ? parts[2] : null);
-				Page.display(new ListPage.filter(type, (GameObject object) {
-					return (category == null || object.category.toLowerCase() == category.toLowerCase());
-				}).toPage());
-			} else {
-				Page.display(window.location.hash.substring(1), true);
-			}
+		void _goToCurrentHash() {
+			display(new ObjectPath.fromWindow());
 		}
 
-		// Go to any requested page
-		if (window.location.hash != "") {
-			_navToHash();
+		// Go to ininially requested page
+		if (hashExists()) {
+			_goToCurrentHash();
 		}
 
 		// Handle URL updates
 		window.onHashChange.listen((_) {
-			_navToHash();
+			if (hashExists() && !hashLock) {
+				_goToCurrentHash();
+			}
+
+			hashLock = false;
 		});
 	}
 
 	/// Open a page
-	static void display(dynamic toDisplay, [bool fromHash = false]) {
+	static void display(dynamic toDisplay, [bool clear = true]) {
 		Element element;
 
 		if (toDisplay is Element) {
 			element = toDisplay;
-		} else {
-			GameObject object = (toDisplay is GameObject ? toDisplay : GameObject.find(toDisplay));
-			element = object.toPage();
-
-			if (!fromHash) {
-				window.location.hash = object.hashUrl;
+		} else if (toDisplay is GameObject) {
+			element = toDisplay.toPage();
+		} else if (toDisplay is ObjectPath) {
+			if (toDisplay.isList) {
+				element = new ListPage.filter(toDisplay.type, (GameObject object) =>
+					toDisplay.listContains(object)).toPage();
+			} else {
+				return display(GameObject.find(toDisplay.path));
 			}
+		} else if (toDisplay is String) {
+			return display(new ObjectPath(toDisplay as String));
+		} else {
+			throw "Cannot display type ${display.runtimeType}";
 		}
 
-		PAGE_CONTAINER
-			..children.clear()
-			..append(element);
+		setHash(toDisplay);
+
+		if (clear) {
+			PAGE_CONTAINER.children.clear();
+		}
+
+		PAGE_CONTAINER.append(element);
 	}
 }
