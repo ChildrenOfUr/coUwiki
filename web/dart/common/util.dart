@@ -41,7 +41,5 @@ void setHash([dynamic hash]) {
 		hashString = "";
 	}
 
-	hashLock = true;
 	window.location.hash = hashString;
-	// Unlocked by next update
 }

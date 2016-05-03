@@ -1,17 +1,20 @@
 body {
     background-color: #fafafa;
     margin-top: 70px;
+    overflow-y: scroll;
 }
 
 body,
 input,
 textarea {
     font-family: "Lato", sans-serif;
-    font-size: 14px;
+    font-size: 16px;
 }
 
+*,
+*:active,
 *:focus {
-    outline: none;
+    outline: none !important;
 }
 
 /* Navbar */
@@ -22,7 +25,6 @@ textarea {
 
 .navbar-brand {
     color: #4b2e4c !important;
-    font-weight: bold;
 }
 
 .navbar-brand img {

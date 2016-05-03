@@ -4,27 +4,6 @@ class Page {
 	/// Element that holds the pages
 	static final DivElement PAGE_CONTAINER = querySelector("#page-container");
 
-	/// One-time initialization
-	static void setupPages() {
-		void _goToCurrentHash() {
-			display(new ObjectPath.fromWindow());
-		}
-
-		// Go to ininially requested page
-		if (hashExists()) {
-			_goToCurrentHash();
-		}
-
-		// Handle URL updates
-		window.onHashChange.listen((_) {
-			if (hashExists() && !hashLock) {
-				_goToCurrentHash();
-			}
-
-			hashLock = false;
-		});
-	}
-
 	/// Open a page
 	static void display(dynamic toDisplay, [bool clear = true]) {
 		Element element;

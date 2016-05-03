@@ -81,8 +81,9 @@ class Search {
 			}
 		});
 
+		int yOffset = input.offsetTop + input.clientHeight + window.scrollY;
 		typeahead.style
-			..transform = "translate(${input.offsetLeft}px, ${input.offsetTop + input.clientHeight}px)"
+			..transform = "translate(${input.offsetLeft}px, ${yOffset}px)"
 			..width = "${input.clientWidth + 2}px";
 		document.body.append(typeahead);
 		input.classes.add(TYPEAHEAD_OPEN);

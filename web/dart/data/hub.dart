@@ -21,10 +21,16 @@ class Hub extends GameObject {
 		this.disableWeather,
 		this.snowyWeather,
 		this.tripleJumping
-	) : super(Hub, id, name, null, "img/signpost.png");
+	) : super(Hub, id, name, null, "$HUBIMG_URL/$name.jpg");
 
 	DivElement toPage() {
 		DivElement parent = super.toPage();
+
+		parent.append(
+			new ImageElement(src: iconUrl)
+				..classes = ["img-thumbnail", "img-responsive", "center-block"]
+		);
+		parent.append(new HRElement());
 
 		if (music != null) {
 			parent.append(makeAlert("info", "This region plays the $music music."));

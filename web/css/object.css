@@ -1,0 +1,23 @@
+/* Item */
+
+.item-header {
+    margin-bottom: 10px;
+}
+
+/* Street */
+
+.street-image {
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: 100% auto;
+    width: 100%;
+    height: auto;
+    transition: all 0.5s ease-in-out;
+    position: relative;
+}
+
+.street-image button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}

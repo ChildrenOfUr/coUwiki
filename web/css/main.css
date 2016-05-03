@@ -4,5 +4,6 @@
 
 /* Stylesheets */
 @import url(list.css);
+@import url(object.css);
 @import url(page.css);
 @import url(search.css);

@@ -34,11 +34,11 @@ class Item extends GameObject {
 					..classes = ["row", "item-header"]
 					..append(
 						new ImageElement(src: iconUrl)
-							..classes = ["col-sm-3", "img-responsive"]
+							..classes = ["col-xs-3", "img-responsive"]
 					)
 					..append(
 						new ParagraphElement()
-							..classes = ["col-sm-9", "lead"]
+							..classes = ["col-xs-9", "lead"]
 							..text = description
 					)
 			)

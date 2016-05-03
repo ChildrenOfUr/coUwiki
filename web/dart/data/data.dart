@@ -6,6 +6,8 @@ class Data {
 	Map<String, List<GameObject>> dataset = new Map();
 
 	Data() {
+		cache = new Cache();
+
 		try {
 			_loadAll().then((_) => load.complete(this));
 		} catch(e) {

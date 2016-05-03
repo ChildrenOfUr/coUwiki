@@ -31,6 +31,13 @@ class Street extends GameObject {
 				)
 			);
 
+		parent.append(new DivElement()..id = "street-image");
+		new StreetImageDisplay.auto(this.id).ready.future.then((StreetImageDisplay image) {
+			parent.querySelector("#street-image").replaceWith(image.parent);
+			image.collapse();
+		});
+		parent.append(new HRElement());
+
 		if (hasMailbox) {
 			parent.append(makeAlert("info", "Mailbox"));
 		}
