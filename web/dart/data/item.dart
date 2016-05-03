@@ -38,7 +38,7 @@ class Item extends GameObject {
 					)
 					..append(
 						new ParagraphElement()
-							..classes = ["col-xs-9", "lead"]
+							..classes = ["col-xs-9", "lead", "text-justify"]
 							..text = description
 					)
 			)
