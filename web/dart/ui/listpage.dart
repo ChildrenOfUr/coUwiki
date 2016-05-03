@@ -17,7 +17,7 @@ class ListPage extends Page {
 	DivElement toPage() {
 		DivElement makeListItem(String imgSrc, String text, Function onClick) =>
 			new DivElement()
-				..classes = ["col-sm-3", "col-xs-6", "listed-object"]
+				..classes = ["col-xs-6", "col-sm-3", "col-lg-2", "listed-object"]
 				..append(new ImageElement(src: imgSrc))
 				..append(new SpanElement()..text = text)
 				..onClick.listen((MouseEvent event) => onClick(event));
