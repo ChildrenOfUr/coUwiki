@@ -20,7 +20,8 @@ class GameObject {
 	GameObject.fake(this.name, this.iconUrl, this.navigationHandler);
 
 	DivElement toPage() {
-		DivElement parent = new DivElement();
+		DivElement parent = new DivElement()
+			..classes.add("gameobject-${this.runtimeType.toString().toLowerCase()}");
 
 		// Title
 		parent.append(

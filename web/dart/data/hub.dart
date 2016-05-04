@@ -52,7 +52,7 @@ class Hub extends GameObject {
 			parent.append(makeAlert("danger", "You can't triple-jump."));
 		}
 
-		parent.append(new HeadingElement.h3()..text = "Streets");
+		parent.append(new HeadingElement.h2()..text = "Streets");
 		parent.append(new ListPage.filter(Street, (Street street) {
 			return street.hubId == id;
 		}).toPage());

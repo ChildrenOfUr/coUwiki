@@ -21,6 +21,7 @@ class Data {
 	Future _loadAll() async {
 		await _loadStreets();
 		await _loadItems();
+		await _loadEntities();
 
 		cache.updateDate();
 	}
@@ -89,6 +90,30 @@ class Data {
 				itemData["subSlots"] ?? 0,
 				itemData["isContainer"] ?? false,
 				itemData["consumeValues"] ?? new Map()
+			));
+		});
+	}
+
+	Future _loadEntities() async {
+		dataset["entity"] = new List();
+		String json;
+
+		if (cache.dataCurrent("entities")) {
+			json = cache.getData("entities");
+		} else {
+			json = await HttpRequest.getString("$SERVER_URL/entities/list?token=$RS_TOKEN");
+			cache.setData("entities", json);
+		}
+
+		JSON.decode(json).forEach((Map<String, dynamic> entityData) {
+			dataset["entity"].add(new Entity(
+				entityData["id"],
+				entityData["name"],
+				entityData["category"],
+				entityData["states"],
+				entityData["currentState"],
+				entityData["responses"],
+				entityData["sellItems"]
 			));
 		});
 	}
