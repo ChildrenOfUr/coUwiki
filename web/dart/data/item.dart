@@ -56,6 +56,42 @@ class Item extends GameObject {
 			parent.append(makeAlert("success", "Can hold $subSlots item${plural(subSlots)}"));
 		}
 
+		if (consumeValues.length > 0) {
+			parent
+				..append(new HRElement())
+				..append(new HeadingElement.h2()..text = "Consumable");
+
+			if (consumeValues["energy"] != 0) {
+				parent
+					..append(
+						new SpanElement()
+							..classes = ["label", "label-danger"]
+							..text = "${consumeValues["energy"]} energy"
+					)
+					..appendText(" ");
+			}
+
+			if (consumeValues["mood"] != 0) {
+				parent
+					..append(
+						new SpanElement()
+							..classes = ["label", "label-success"]
+							..text = "${consumeValues["mood"]} mood"
+					)
+					..appendText(" ");
+			}
+
+			if (consumeValues["img"] != 0) {
+				parent
+					..append(
+						new SpanElement()
+							..classes = ["label", "label-info"]
+							..text = "${consumeValues["img"]} iMG"
+					)
+					..appendText(" ");
+			}
+		}
+
 		return parent;
 	}
 }
