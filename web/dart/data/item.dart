@@ -23,7 +23,7 @@ class Item extends GameObject {
 		this.subSlots,
 		this.isContainer,
 		this.consumeValues
-	) : super(Item, id, name, category, iconUrl);
+	) : super(GameObjectType.Item, id, name, category, iconUrl);
 
 	DivElement toPage() {
 		DivElement parent = super.toPage();

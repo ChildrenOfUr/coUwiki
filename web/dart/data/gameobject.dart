@@ -16,16 +16,16 @@ class GameObject {
 	String name;
 	String category;
 	String iconUrl;
-	Type type;
+	GameObjectType _type;
 	Function navigationHandler;
 
-	GameObject(this.type, this.id, this.name, this.category, this.iconUrl);
+	GameObject(GameObjectType type, this.id, this.name, this.category, this.iconUrl) : _type = type;
 
-	GameObject.fake(this.name, this.iconUrl, this.navigationHandler);
+	GameObject.fake(this.name, this.iconUrl, this.navigationHandler) : _type = GameObjectType.GameObject;
 
 	DivElement toPage() {
 		DivElement parent = new DivElement()
-			..classes.add("gameobject-${this.runtimeType.toString().toLowerCase()}");
+			..classes.add("gameobject-${type.toLowerCase()}");
 
 		// Title
 		parent.append(
@@ -44,7 +44,7 @@ class GameObject {
 				..append(
 					new LIElement()
 						..append(
-							new AnchorElement(href: "#list/${type.toString().toLowerCase()}")
+							new AnchorElement(href: "#list/${type.toLowerCase()}")
 								..text = type.toString()
 						)
 				)
@@ -54,7 +54,7 @@ class GameObject {
 			parent.querySelector(".breadcrumb").append(
 				new LIElement()
 					..append(
-						new AnchorElement(href: "#list/${type.toString().toLowerCase()}/${category.toLowerCase()}")
+						new AnchorElement(href: "#list/${type.toLowerCase()}/${category.toLowerCase()}")
 							..text = category
 					)
 			);
@@ -70,4 +70,9 @@ class GameObject {
 	}
 
 	ObjectPath get path => new ObjectPath("${type.toString().toLowerCase()}/$id");
+
+	String get type => _type.toString().split(".")[1];
+
+	@override
+	String toString() => "GameObject/$type/$id";
 }

@@ -23,7 +23,7 @@ class ListPage extends Page {
 	}
 
 	DivElement toPage() {
-		DivElement makeListItem(String imgSrc, String text, Function onClick) =>
+		DivElement _makeListItem(String imgSrc, String text, Function onClick) =>
 			new DivElement()
 				..classes = ["col-xs-6", "col-sm-3", "col-lg-2", "listed-object"]
 				..append(new ImageElement(src: imgSrc))
@@ -34,15 +34,10 @@ class ListPage extends Page {
 			..classes = ["row", "object-list"];
 
 		objects.forEach((GameObject object) {
-			parent.append(makeListItem(
+			print(object);
+			parent.append(_makeListItem(
 				object.iconUrl, object.name,
-				(MouseEvent event) {
-					if (object.navigationHandler != null) {
-						object.navigationHandler(event);
-					} else {
-						Page.display(object);
-					}
-				}
+				(_) => object.navigationHandler != null ? object.navigationHandler(object) : Page.display(object)
 			));
 		});
 

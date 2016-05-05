@@ -16,7 +16,7 @@ part "common/objectpath.dart";
 part "common/util.dart";
 
 part "data/achievement.dart";
-part "data/data.dart";
+part "common/data.dart";
 part "data/entity.dart";
 part "data/gameobject.dart";
 part "data/hub.dart";

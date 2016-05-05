@@ -14,7 +14,7 @@ class Skill extends GameObject {
 		this.levels,
 		this.iconUrls,
 		this.giants
-	) : super(Skill, id, name, category, null) {
+	) : super(GameObjectType.Skill, id, name, category, null) {
 		iconUrl = iconUrls.first;
 	}
 

@@ -18,7 +18,7 @@ class Street extends GameObject {
 		this.hasMailbox,
 		this.vendor,
 		this.shrine
-	) : super(Street, id, name, null, "img/signpost.png");
+	) : super(GameObjectType.Street, id, name, null, "img/signpost.png");
 
 	DivElement toPage() {
 		DivElement parent = super.toPage();

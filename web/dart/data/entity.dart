@@ -12,7 +12,8 @@ class Entity extends GameObject {
 		this.states,
 		this.currentState,
 		this.responses,
-		this.sellItems) : super(Entity, id, name, category, null) {
+		this.sellItems
+	) : super(GameObjectType.Entity, id, name, category, null) {
 		if (category == "Shrine") {
 			iconUrl = SHRINE_IMG;
 		} else if (name.contains("Street Spirit")) {
@@ -69,6 +70,8 @@ class Entity extends GameObject {
 						..text = text);
 				});
 			});
+
+			parent.append(new HRElement());
 		}
 
 		// Spritesheets

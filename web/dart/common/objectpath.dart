@@ -61,5 +61,8 @@ class ObjectPath {
 	String toString() => hashPath;
 
 	@override
+	int get hashCode => hashPath.hashCode;
+
+	@override
 	operator ==(ObjectPath other) => eqCi(this, other);
 }

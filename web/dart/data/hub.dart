@@ -21,7 +21,7 @@ class Hub extends GameObject {
 		this.disableWeather,
 		this.snowyWeather,
 		this.tripleJumping
-	) : super(Hub, id, name, null, "$HUBIMG_URL/$name.jpg");
+	) : super(GameObjectType.Hub, id, name, null, "$HUBIMG_URL/$name.jpg");
 
 	DivElement toPage() {
 		DivElement parent = super.toPage();
@@ -52,10 +52,12 @@ class Hub extends GameObject {
 			parent.append(makeAlert("danger", "You can't triple-jump."));
 		}
 
-		parent.append(new HeadingElement.h2()..text = "Streets");
-		parent.append(new ListPage.filter(Street, (Street street) {
-			return street.hubId == id;
-		}).toPage());
+		parent
+			..append(new HRElement())
+			..append(new HeadingElement.h2()..text = "Streets")
+			..append(new ListPage.filter(Street, (Street street) {
+				return street.hubId == id;
+			}).toPage());
 
 		return parent;
 	}

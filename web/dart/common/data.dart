@@ -11,7 +11,7 @@ class Data {
 		try {
 			_loadAll().then((_) => load.complete(this));
 		} catch(e) {
-			window.console.error("Could not load data: $e");
+			window.alert("Could not load data.");
 			new Future.delayed(new Duration(seconds: 5)).then((_) {
 				hardReload();
 			});
