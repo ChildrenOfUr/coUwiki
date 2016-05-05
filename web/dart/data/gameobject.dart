@@ -69,7 +69,7 @@ class GameObject {
 			..text = message;
 	}
 
-	ObjectPath get path => new ObjectPath("${type.toString().toLowerCase()}/$id");
+	ObjectPath get path => new ObjectPath("${type.toLowerCase()}/$id");
 
 	String get type => _type.toString().split(".")[1];
 

@@ -22,7 +22,6 @@ class Street extends GameObject {
 
 	DivElement toPage() {
 		DivElement parent = super.toPage();
-
 		parent.querySelector(".breadcrumb").append(
 			new LIElement()
 				..append(
