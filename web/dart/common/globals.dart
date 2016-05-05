@@ -1,6 +1,6 @@
 part of coUwiki;
 
-// General constants
+// Resource constants
 
 final String ACHV_IMG = "img/achievements.png";
 final String CURRANT_IMG = "img/currant.svg";
@@ -11,12 +11,12 @@ final String SHRINE_IMG = "img/shrine.svg";
 final String STREETS_IMG = "img/signpost.png";
 final String SKILLS_IMG = "img/skills.png";
 
-// Server connection
+// Server connections
 
-final String SERVER_URL = "http:///localhost:8181";
-final String STREET_URL = "https://raw.githubusercontent.com/ChildrenOfUr/CAT422-glitch-location-viewer/master/locations";
-final String HUBIMG_URL = "http://childrenofur.com/assets/hubImages";
 final String ENTITY_URL = "http://childrenofur.com/assets/staticEntityImages";
+final String HUBIMG_URL = "http://childrenofur.com/assets/hubImages";
+final String SERVER_URL = "http:///robertmcdermot.com:8181";
+final String STREET_URL = "https://raw.githubusercontent.com/ChildrenOfUr/CAT422-glitch-location-viewer/master/locations";
 
 // Global objects
 

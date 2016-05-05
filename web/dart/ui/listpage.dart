@@ -34,7 +34,6 @@ class ListPage extends Page {
 			..classes = ["row", "object-list"];
 
 		objects.forEach((GameObject object) {
-			print(object);
 			parent.append(_makeListItem(
 				object.iconUrl, object.name,
 				(_) => object.navigationHandler != null ? object.navigationHandler(object) : Page.display(object)

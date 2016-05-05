@@ -12,6 +12,7 @@
 </head>
 <body>
 
+<!-- Header -->
 <nav class="navbar navbar-default navbar-fixed-top" id="nav-header">
 	<div class="container">
 		<div class="navbar-header">
@@ -35,6 +36,7 @@
 	</div>
 </nav>
 
+<!-- Content -->
 <div class="container" id="page-container">
 	<div class="jumbotron">
 		<h1>Welcome to the Children of Ur Encyclopedia!</h1>
@@ -43,6 +45,7 @@
 	</div>
 </div>
 
+<!-- Footer -->
 <div class="footer navbar-default">
 	<div class="container">
 		<p class="navbar-text navbar-left">
@@ -51,6 +54,28 @@
 		<p class="navbar-text navbar-right">
 			Assets &copy; 2009 - 2012 <a href="http://www.glitchthegame.com/" target="_blank">Glitch</a>
 		</p>
+	</div>
+</div>
+
+<!-- Error -->
+<div class="modal fade" id="load-error">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4>Error</h4>
+			</div>
+			<div class="modal-body">
+				<p>
+					There was an error while loading data. The game server may be down, which you can check on the status page:
+				</p>
+				<p>
+					<a href="http://status.childrenofur.com" class="btn btn-block btn-primary">Status Page</a>
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-warning" id="load-retry">Try Again</button>
+			</div>
+		</div>
 	</div>
 </div>
 

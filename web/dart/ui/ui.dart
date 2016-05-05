@@ -10,6 +10,14 @@ class UI {
 		new GameObject.fake("Streets", STREETS_IMG, (_) => Page.display("list/street"))
 	]).toPage();
 
+	static void showLoadError() {
+		context[r"$"].apply(["#load-error"]).callMethod(
+			"modal", [new JsObject.jsify(
+			{"show": "true", "backdrop": "static"})]
+		);
+		querySelector("#load-retry").onClick.listen((_) => hardReload());
+	}
+
 	Search search;
 
 	UI() {

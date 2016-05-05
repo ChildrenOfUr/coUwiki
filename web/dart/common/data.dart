@@ -8,24 +8,21 @@ class Data {
 	Data() {
 		cache = new Cache();
 
-		try {
-			_loadAll().then((_) => load.complete(this));
-		} catch(e) {
-			window.alert("Could not load data.");
-			new Future.delayed(new Duration(seconds: 5)).then((_) {
-				hardReload();
-			});
-		}
+		_loadAll().then((_) => load.complete(this));
 	}
 
 	Future _loadAll() async {
-		await _loadAchievements();
-		await _loadEntities();
-		await _loadItems();
-		await _loadStreets();
-		await _loadSkills();
-
-		cache.updateDate();
+		try {
+			await _loadAchievements();
+			await _loadEntities();
+			await _loadItems();
+			await _loadStreets();
+			await _loadSkills();
+			cache.updateDate();
+		} catch(e) {
+			UI.showLoadError();
+			throw e;
+		}
 	}
 
 	Future _loadAchievements() async {
