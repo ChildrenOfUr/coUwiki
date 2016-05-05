@@ -21,22 +21,24 @@ class Search {
 		}
 
 		// For each main game object type
-		data.dataset.keys.forEach((String key) {
-			// Find matches
-			result[key] = data.dataset[key].where((GameObject object) {
-				return levenshtein(object.name, needle, caseSensitive: false) <= 3
-					|| object.name.toLowerCase().contains(needle.toLowerCase());
-			}).toList();
+		data.dataset.keys.toList()
+			..sort((String a, String b) => a.compareTo(b))
+			..forEach((String key) {
+				// Find matches
+				result[key] = data.dataset[key].where((GameObject object) {
+					return levenshtein(object.name, needle, caseSensitive: false) <= 3
+						|| object.name.toLowerCase().contains(needle.toLowerCase());
+				}).toList();
 
-			// Sort results in each category by relevance
-			result[key].sort((GameObject a, GameObject b) {
-				return levenshtein(a.name, needle, caseSensitive: false)
-					 - levenshtein(b.name, needle, caseSensitive: false);
+				// Sort results in each category by relevance
+				result[key].sort((GameObject a, GameObject b) {
+					return levenshtein(a.name, needle, caseSensitive: false)
+						- levenshtein(b.name, needle, caseSensitive: false);
+				});
+
+				// Then only display the top 10
+				result[key] = result[key].sublist(0, min(result[key].length, 10));
 			});
-
-			// Then only display the top 10
-			result[key] = result[key].sublist(0, min(result[key].length, 10));
-		});
 
 		return result;
 	}
@@ -48,7 +50,8 @@ class Search {
 			return;
 		}
 
-		typeahead = new DivElement()..classes.add("typeahead");
+		typeahead = new DivElement()
+			..classes.add("typeahead");
 
 		items.forEach((String category, List<GameObject> contents) {
 			if (contents.length > 0) {
@@ -59,23 +62,21 @@ class Search {
 							..text = ucfirst(category)
 					);
 
-					contents.forEach((GameObject object) {
-						String displayName = object.name;
+				contents.forEach((GameObject object) {
+					LIElement item = new LIElement()
+						..append(
+							new DivElement()
+								..classes = ["img"]
+								..style.backgroundImage = "url(${object.iconUrl})"
+						)
+						..appendText(object.name)
+						..onClick.first.then((_) {
+							closeTypeahead(true);
+							Page.display(object);
+						});
 
-						LIElement item = new LIElement()
-							..append(
-								new DivElement()
-									..classes = ["img"]
-									..style.backgroundImage = "url(${object.iconUrl})"
-							)
-							..appendHtml(displayName)
-							..onClick.first.then((_) {
-								closeTypeahead(true);
-								Page.display(object);
-							});
-
-						section.append(item);
-					});
+					section.append(item);
+				});
 
 				typeahead.append(section);
 			}
@@ -89,11 +90,11 @@ class Search {
 		input.classes.add(TYPEAHEAD_OPEN);
 	}
 
-	void closeTypeahead([bool full = false]) {
+	void closeTypeahead([bool clear = false]) {
 		typeahead?.remove();
 		input.classes.remove(TYPEAHEAD_OPEN);
 
-		if (full) {
+		if (clear) {
 			input.value = "";
 		}
 	}

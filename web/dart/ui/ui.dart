@@ -1,13 +1,16 @@
 part of coUwiki;
 
 class UI {
-	Search search;
-
-	final DivElement HOME_LIST = new ListPage.set([
-		new GameObject.fake("Regions", SIGNPOST2_IMG, (_) => Page.display("list/hub")),
-		new GameObject.fake("Streets", SIGNPOST_IMG, (_) => Page.display("list/street")),
-		new GameObject.fake("Items", BLENDER_IMG, (_) => Page.display("list/item")),
+	static final DivElement HOME_LIST = new ListPage.set([
+		new GameObject.fake("Achievements", ACHV_IMG, (_) => Page.display("list/achievement")),
+		new GameObject.fake("Entities", ENTITY_IMG, (_) => Page.display("list/entity")),
+		new GameObject.fake("Items", ITEM_IMG, (_) => Page.display("list/item")),
+		new GameObject.fake("Regions", LOCATIONS_IMG, (_) => Page.display("list/hub")),
+		new GameObject.fake("Skills", SKILLS_IMG, (_) => Page.display("list/skill")),
+		new GameObject.fake("Streets", STREETS_IMG, (_) => Page.display("list/street"))
 	]).toPage();
+
+	Search search;
 
 	UI() {
 		// Set up search
@@ -21,6 +24,9 @@ class UI {
 	}
 
 	void _goToCurrentHash() {
+		window.scrollTo(window.scrollX, 0);
+		search.closeTypeahead();
+
 		if (hashExists()) {
 			Page.display(new ObjectPath.fromWindow());
 		} else {

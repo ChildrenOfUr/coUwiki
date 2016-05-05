@@ -3,9 +3,13 @@ part of coUwiki;
 class GameObject {
 	static GameObject find(String url) {
 		ObjectPath path = new ObjectPath(url);
-		return data.dataset[path.type].singleWhere((GameObject object) {
-			return (object.id == path.id);
-		});
+		try {
+			return data.dataset[path.type].singleWhere((GameObject object) {
+				return (object.id == path.id);
+			});
+		} catch(_) {
+			return null;
+		}
 	}
 
 	String id;

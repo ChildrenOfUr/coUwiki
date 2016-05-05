@@ -6,13 +6,21 @@ class ListPage extends Page {
 	/// Lists objects of one type
 	/// where passing the object to the test function returns true
 	ListPage.filter(dynamic type, Function test) {
-		objects = data.dataset[type.toString().toLowerCase()].where((GameObject object) {
-			return test(object);
-		}).toList();
+		try {
+			objects = data.dataset[type.toString().toLowerCase()].where((GameObject object) {
+				return test(object);
+			}).toList();
+
+			_sort();
+		} catch(_) {
+			Page.display(UI.HOME_LIST);
+		}
 	}
 
 	/// Lists all objects provided
-	ListPage.set(this.objects);
+	ListPage.set(this.objects) {
+		_sort();
+	}
 
 	DivElement toPage() {
 		DivElement makeListItem(String imgSrc, String text, Function onClick) =>
@@ -39,5 +47,10 @@ class ListPage extends Page {
 		});
 
 		return parent;
+	}
+
+	/// Sort by name
+	void _sort() {
+		objects.sort((GameObject a, GameObject b) => a.name.compareTo(b.name));
 	}
 }

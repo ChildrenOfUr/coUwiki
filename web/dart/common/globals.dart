@@ -2,9 +2,14 @@ part of coUwiki;
 
 // General constants
 
-final String SIGNPOST_IMG = "img/signpost.png";
-final String SIGNPOST2_IMG = "img/signpost_double.png";
-final String BLENDER_IMG = "img/blender.png";
+final String ACHV_IMG = "img/achievements.png";
+final String CURRANT_IMG = "img/currant.svg";
+final String ENTITY_IMG = "img/entities.png";
+final String ITEM_IMG = "img/items.png";
+final String LOCATIONS_IMG = "img/locations.png";
+final String SHRINE_IMG = "img/shrine.svg";
+final String STREETS_IMG = "img/signpost.png";
+final String SKILLS_IMG = "img/skills.png";
 
 // Server connection
 
