@@ -33,6 +33,14 @@ textarea {
     margin-top: -5px;
 }
 
+/* Footer */
+
+.footer {
+    background: #fafafa;
+    box-shadow: none;
+    margin-top: 50px;
+}
+
 /* Scrollbar styles */
 
 ::-webkit-scrollbar {

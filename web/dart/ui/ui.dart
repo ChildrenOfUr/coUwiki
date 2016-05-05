@@ -21,6 +21,9 @@ class UI {
 
 		// Handle URL updates
 		window.onHashChange.listen((_) => _goToCurrentHash());
+
+		// Set copyright date
+		querySelector(".copyright-years").text = " - ${new DateTime.now().year}";
 	}
 
 	void _goToCurrentHash() {
