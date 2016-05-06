@@ -11,18 +11,18 @@ import "dart:js";
 import "package:levenshtein/levenshtein.dart";
 
 part "common/cache.dart";
+part "common/data.dart";
 part "common/globals.dart";
 part "common/objectpath.dart";
 part "common/util.dart";
 
-part "data/achievement.dart";
-part "common/data.dart";
-part "data/entity.dart";
-part "data/gameobject.dart";
-part "data/hub.dart";
-part "data/item.dart";
-part "data/skill.dart";
-part "data/street.dart";
+part "objects/achievement.dart";
+part "objects/entity.dart";
+part "objects/gameobject.dart";
+part "objects/hub.dart";
+part "objects/item.dart";
+part "objects/skill.dart";
+part "objects/street.dart";
 
 part "ui/listpage.dart";
 part "ui/page.dart";
