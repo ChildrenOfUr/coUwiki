@@ -6,8 +6,9 @@ class ListPage extends Page {
 	/// Lists objects of one type
 	/// where passing the object to the test function returns true
 	ListPage.filter(dynamic type, Function test) {
+		String typeStr = (type is String ? type : typeString(type)).toLowerCase();
 		try {
-			objects = data.dataset[type.toString().toLowerCase()].where((GameObject object) {
+			objects = data.dataset[typeStr].where((GameObject object) {
 				return test(object);
 			}).toList();
 

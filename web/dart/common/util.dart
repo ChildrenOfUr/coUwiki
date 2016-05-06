@@ -43,3 +43,8 @@ void setHash([dynamic hash]) {
 
 	window.location.hash = hashString;
 }
+
+/// GameObjectType to String
+typeString(GameObjectType type) {
+	return type.toString().split(".")[1];
+}

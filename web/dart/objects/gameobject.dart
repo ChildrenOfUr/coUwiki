@@ -71,7 +71,7 @@ class GameObject {
 
 	ObjectPath get path => new ObjectPath("${type.toLowerCase()}/$id");
 
-	String get type => _type.toString().split(".")[1];
+	String get type => typeString(_type);
 
 	@override
 	String toString() => "GameObject/$type/$id";

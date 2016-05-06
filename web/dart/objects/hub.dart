@@ -2,9 +2,13 @@ part of coUwiki;
 
 class Hub extends GameObject {
 	static Hub find(String id) {
-		return data.dataset["hub"].singleWhere((Hub hub) {
-			return hub.id == id;
-		});
+		try {
+			return data.dataset["hub"].singleWhere((Hub hub) {
+				return hub.id == id;
+			});
+		} catch(_) {
+			return null;
+		}
 	}
 
 	String music;
@@ -55,7 +59,7 @@ class Hub extends GameObject {
 		parent
 			..append(new HRElement())
 			..append(new HeadingElement.h2()..text = "Streets")
-			..append(new ListPage.filter(Street, (Street street) {
+			..append(new ListPage.filter(GameObjectType.Street, (Street street) {
 				return street.hubId == id;
 			}).toPage());
 

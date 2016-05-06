@@ -17,7 +17,7 @@ class Page {
 				element = new ListPage.filter(toDisplay.type, (GameObject object) =>
 					toDisplay.listContains(object)).toPage();
 			} else {
-				return display(GameObject.find(toDisplay.path) ?? UI.HOME_LIST);
+				return display(GameObject.find(toDisplay.path));
 			}
 		} else if (toDisplay is String) {
 			return display(new ObjectPath(toDisplay as String));
