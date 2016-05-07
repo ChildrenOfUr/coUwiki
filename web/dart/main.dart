@@ -31,6 +31,8 @@ part "ui/streetimage.dart";
 part "ui/ui.dart";
 
 Future main() async {
-	data = await new Data().load.future;
-	ui = new UI();
+	window.onLoad.listen((_) async {
+		data = await new Data().load.future;
+		ui = new UI();
+	});
 }

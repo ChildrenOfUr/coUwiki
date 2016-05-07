@@ -3,7 +3,12 @@
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css);
 
 /* Stylesheets */
+@import url(entity.css);
 @import url(list.css);
+@import url(loading.css);
+@import url(nav.css);
 @import url(object.css);
 @import url(page.css);
 @import url(search.css);
+@import url(skill.css);
+@import url(street.css);

@@ -32,14 +32,18 @@ class UI {
 
 		// Set copyright date
 		querySelector(".copyright-years").text = " - ${new DateTime.now().year}";
+
+		// Hide the loading screen
+		document.body.classes.remove("loading");
 	}
 
 	void _goToCurrentHash() {
 		window.scrollTo(window.scrollX, 0);
 		search.closeTypeahead();
 
-		if (hashExists()) {
-			Page.display(new ObjectPath.fromWindow());
+		ObjectPath current = new ObjectPath.fromWindow();
+		if (!current.isHome) {
+			Page.display(current);
 		} else {
 			Page.display(HOME_LIST, Page.PAGE_CONTAINER.querySelector(".jumbotron") == null);
 		}

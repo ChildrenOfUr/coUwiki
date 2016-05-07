@@ -26,9 +26,6 @@ Cache cache;
 Data data;
 UI ui;
 
-/// Whether a page is requested
-bool hashExists() => window.location.hash.length > 1;
-
 /// Type of GameObject (used for listing)
 enum GameObjectType {
 	Achievement,

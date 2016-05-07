@@ -44,7 +44,7 @@ class GameObject {
 				..append(
 					new LIElement()
 						..append(
-							new AnchorElement(href: "#list/${type.toLowerCase()}")
+							new AnchorElement(href: "#/list/${type.toLowerCase()}")
 								..text = type.toString()
 						)
 				)
@@ -54,7 +54,7 @@ class GameObject {
 			parent.querySelector(".breadcrumb").append(
 				new LIElement()
 					..append(
-						new AnchorElement(href: "#list/${type.toLowerCase()}/${category.toLowerCase()}")
+						new AnchorElement(href: "#/list/${type.toLowerCase()}/${category.toLowerCase()}")
 							..text = category
 					)
 			);

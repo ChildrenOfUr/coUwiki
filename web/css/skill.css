@@ -1,0 +1,10 @@
+.skill-icon .media-object {
+    width: 64px;
+    height: 64px;
+    float: left;
+    margin-right: 10px;
+}
+
+.giant-affiliations li:first-child::after {
+    content: " (Primary)";
+}
