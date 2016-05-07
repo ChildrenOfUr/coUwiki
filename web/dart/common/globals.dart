@@ -20,7 +20,7 @@ final String MIME_PNG = "image/png";
 
 final String ENTITY_URL = "http://childrenofur.com/assets/staticEntityImages";
 final String HUBIMG_URL = "http://childrenofur.com/assets/hubImages";
-final String SERVER_URL = "http:///localhost:8181";
+final String SERVER_URL = "http:///robertmcdermot.com:8181";
 final String STREET_URL = "https://raw.githubusercontent.com/ChildrenOfUr/CAT422-glitch-location-viewer/master/locations";
 
 // Global objects
