@@ -6,6 +6,14 @@ class Cache {
 	final String DATE_KEY = "date";
 	final Duration EXPIRY = new Duration(days: 7);
 
+	Cache() {
+		if (getData("version") != RELEASE) {
+			clear();
+		}
+
+		setData("version", RELEASE);
+	}
+
 	/// Set the last update to today (only after updating the data!)
 	void updateDate() {
 		/*

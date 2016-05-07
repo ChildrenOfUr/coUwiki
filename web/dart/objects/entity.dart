@@ -16,7 +16,7 @@ class Entity extends GameObject {
 	) : super(GameObjectType.Entity, id, name, category, null) {
 		if (category == "Shrine") {
 			iconUrl = SHRINE_IMG;
-		} else if (name.contains("Street Spirit")) {
+		} else if (name.contains("Street Spirit") || name.contains("Vendor")) {
 			iconUrl = CURRANT_IMG;
 		} else {
 			try {
@@ -34,9 +34,11 @@ class Entity extends GameObject {
 			return getState(currentState);
 		}
 
-		for (Map<String, dynamic> state in states) {
-			if (state["stateName"] == stateName) {
-				return state;
+		if (states != null) {
+			for (Map<String, dynamic> state in states) {
+				if (state["stateName"] == stateName) {
+					return state;
+				}
 			}
 		}
 
@@ -47,16 +49,39 @@ class Entity extends GameObject {
 		DivElement parent = super.toPage();
 
 		// Image
-		parent.append(
-			new DivElement()
-				..classes = ["entity-image", "center-block", "item-header"]
-				..style.backgroundImage = "url(${getState()["url"]})"
-				..style.backgroundSize = "${getState()["sheetWidth"]}px ${getState()["sheetHeight"]}px"
-				..style.width = "${getState()["frameWidth"]}px"
-				..style.height = "${getState()["frameHeight"]}px"
-		);
+		if (getState() != null) {
+			parent.append(
+				new DivElement()
+					..classes = ["entity-image", "center-block", "item-header"]
+					..style.backgroundImage = "url(${getState()["url"]})"
+					..style.backgroundSize = "${getState()["sheetWidth"]}px ${getState()["sheetHeight"]}px"
+					..style.width = "${getState()["frameWidth"]}px"
+					..style.height = "${getState()["frameHeight"]}px"
+			);
 
-		parent.append(new HRElement());
+			parent.append(new HRElement());
+		}
+
+		// Items
+		if (sellItems != null && sellItems.length > 0) {
+			parent.append(new HeadingElement.h2()..text = "Merchandise");
+			DivElement items = new DivElement()
+				..classes = ["item-box-list"];
+			sellItems.forEach((String itemType) {
+				Item item = GameObject.find("#/item/$itemType");
+				items.append(
+					new AnchorElement(href: item.path.toString())
+						..classes = ["item-box"]
+						..title = item.name
+						..append(
+							new ImageElement(src: item.iconUrl)
+						)
+				);
+			});
+			parent
+				..append(items)
+				..append(new HRElement());
+		}
 
 		// Responses
 		if (responses != null && responses.length > 0) {
