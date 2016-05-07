@@ -21,8 +21,8 @@ class Entity extends GameObject {
 		} else {
 			try {
 				// Check if there is a static entity image available
-				HttpRequest.request("$ENTITY_URL/$name.png");
-				iconUrl = "$ENTITY_URL/$name.png";
+				HttpRequest.request("$ENTITY_URL/$name.png", mimeType: MIME_PNG);
+				iconUrl = Uri.encodeFull("$ENTITY_URL/$name.png");
 			} catch (_) {
 				iconUrl = ENTITY_IMG;
 			}

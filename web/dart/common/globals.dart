@@ -11,6 +11,8 @@ final String SHRINE_IMG = "img/shrine.svg";
 final String STREETS_IMG = "img/signpost.png";
 final String SKILLS_IMG = "img/skills.png";
 
+final String MIME_PNG = "image/png";
+
 // Server connections
 
 final String ENTITY_URL = "http://childrenofur.com/assets/staticEntityImages";

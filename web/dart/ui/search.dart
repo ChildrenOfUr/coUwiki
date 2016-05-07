@@ -63,6 +63,7 @@ class Search {
 					);
 
 				contents.forEach((GameObject object) {
+					print(object.iconUrl);
 					LIElement item = new LIElement()
 						..append(
 							new DivElement()
