@@ -13,7 +13,9 @@ class Page {
 		} else if (toDisplay is GameObject) {
 			element = toDisplay.toPage();
 		} else if (toDisplay is ObjectPath) {
-			if (toDisplay.isList) {
+			if (toDisplay.isHome) {
+				element = UI.HOME_LIST;
+			} else if (toDisplay.isList) {
 				element = new ListPage.filter(toDisplay.type, (GameObject object) =>
 					toDisplay.listContains(object)).toPage();
 			} else {

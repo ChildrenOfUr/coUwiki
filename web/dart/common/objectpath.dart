@@ -3,21 +3,25 @@ part of coUwiki;
 class ObjectPath {
 	String path;
 
+	ObjectPath(this.path);
+
+	ObjectPath.fromWindow() : this.path = window.location.hash;
+
 	String get hashlessPath {
-		if (path.startsWith("#")) {
+		if (path.startsWith("#/")) {
+			return path.replaceFirst("#/", "");
+		} else if (path.startsWith("#")) {
 			return path.replaceFirst("#", "");
 		} else {
 			return path;
 		}
 	}
 
-	String get hashPath => "#" + hashlessPath;
-
-	ObjectPath(this.path);
-
-	ObjectPath.fromWindow() : this.path = window.location.hash;
+	String get hashPath => "#/" + hashlessPath;
 
 	bool get isList => hashlessPath.toLowerCase().startsWith("list");
+
+	bool get isHome => hashlessPath.length == 0;
 
 	List<String> get parts => hashlessPath.split("/");
 
