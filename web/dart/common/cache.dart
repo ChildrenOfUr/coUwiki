@@ -1,11 +1,24 @@
 part of coUwiki;
 
+/**
+ * Manages the caching of downloaded JSON in LocalStorage.
+ * This means that it will only do a full download weekly.
+ */
 class Cache {
+	/// Reference to LocalStorage (for shorter calls)
 	final Storage LOCALSTORAGE = window.localStorage;
+
+	/// LocalStorage keys are in form 'CACHE_KEY ref', like 'coUwiki_cache date'
 	final String CACHE_KEY = "coUwiki_cache";
+
+	/// Where to store the last update timestamp
 	final String DATE_KEY = "date";
+
+	/// How long the cache is good for (TTL)
 	final Duration EXPIRY = new Duration(days: 7);
 
+	/// Create a cache and make sure it is in the newest format.
+	/// If it's format is outdated, clear it.
 	Cache() {
 		if (getData("version") != RELEASE) {
 			clear();

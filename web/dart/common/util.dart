@@ -45,6 +45,17 @@ void setHash([dynamic hash]) {
 }
 
 /// GameObjectType to String
-typeString(GameObjectType type) {
+String typeString(GameObjectType type) {
 	return type.toString().split(".")[1];
+}
+
+/// String to GameObjectType
+GameObjectType stringType(String type) {
+	try {
+		return GameObjectType.values.singleWhere((GameObjectType t) {
+			return (typeString(t).toLowerCase() == type);
+		});
+	} catch(_) {
+		return null;
+	}
 }

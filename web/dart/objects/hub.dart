@@ -1,20 +1,19 @@
 part of coUwiki;
 
 class Hub extends GameObject {
-	static Hub find(String id) {
-		try {
-			return data.dataset["hub"].singleWhere((Hub hub) {
-				return hub.id == id;
-			});
-		} catch(_) {
-			return null;
-		}
-	}
-
+	/// Music that plays in this hub
 	String music;
+
+	/// Whether players will have bubble letters over them in this hub
 	bool playersHaveLetters;
+
+	/// True if weather is disabled here, false if weather will happen normally
 	bool disableWeather;
+
+	/// Whether it will snow here
 	bool snowyWeather;
+
+	/// Whether players can triple jump here
 	bool tripleJumping;
 
 	Hub(
@@ -25,8 +24,9 @@ class Hub extends GameObject {
 		this.disableWeather,
 		this.snowyWeather,
 		this.tripleJumping
-	) : super(GameObjectType.Hub, id, name, null, "$HUBIMG_URL/$name.jpg");
+	) : super(GameObjectType.Hub, id, name, null, "${ServerUrl.HUBIMG}/$name.jpg");
 
+	@override
 	DivElement toPage() {
 		DivElement parent = super.toPage();
 

@@ -1,22 +1,40 @@
 part of coUwiki;
 
+/**
+ * Handles the expanding street images on [Street] [Page]s.
+ */
 class StreetImageDisplay {
+	/// TSID of the displayed street
 	String tsid;
 
+	/// Size of the street's "loading" image (px)
 	Point<int> loadingImageSize;
+
+	/// URL of the street's "loading" image
 	String loadingImageUrl;
 
+	/// Size of the street's "main" image (px)
 	Point<int> mainImageSize;
+
+	/// URL of the street's "main" image
 	String mainImageUrl;
 
+	/// Element containing the image and button
 	Element parent;
+
+	/// Toggle expand/collapse button
 	ButtonElement button;
+
+	/// Icon inside [button]
 	Element buttonIcon;
 
+	/// Weather the street is in expanded ("main") mode
 	bool open;
 
+	/// Allow waiting for the data to download
 	Completer<StreetImageDisplay> ready = new Completer();
 
+	/// Create for the given TSID
 	StreetImageDisplay(String tsid) {
 		// Format TSID correctly (start with G)
 		this.tsid = (tsid.startsWith("L") ? tsid.replaceFirst("L", "G") : tsid);
@@ -31,9 +49,10 @@ class StreetImageDisplay {
 		});
 	}
 
+	/// Download the image data from GitHub
 	Future<bool> _findData(String tsid) async {
 		try {
-			String json = await HttpRequest.requestCrossOrigin("$STREET_URL/$tsid.json");
+			String json = await HttpRequest.requestCrossOrigin("${ServerUrl.STREET}/$tsid.json");
 			Map<String, dynamic> data = JSON.decode(json);
 
 			loadingImageSize = new Point(data["loading_image"]["w"], data["loading_image"]["h"]);
@@ -48,6 +67,7 @@ class StreetImageDisplay {
 		}
 	}
 
+	/// Assemble the parent element
 	DivElement _makeElement() {
 		buttonIcon = new Element.tag("i")
 			..classes = ["fa", "fa-lg"];
@@ -67,6 +87,7 @@ class StreetImageDisplay {
 		return parent;
 	}
 
+	/// Update the sizing for the current window
 	void scale() {
 		if (!ready.isCompleted) {
 			return;
@@ -86,6 +107,7 @@ class StreetImageDisplay {
 		parent.style.height = "${scaledHeight}px";
 	}
 
+	/// Open or close
 	void toggle() {
 		if (open) {
 			collapse();
@@ -94,6 +116,7 @@ class StreetImageDisplay {
 		}
 	}
 
+	/// Close the element (display [loadingImageUrl])
 	void collapse() {
 		open = false;
 		parent.style.backgroundImage = "url($loadingImageUrl)";
@@ -105,6 +128,7 @@ class StreetImageDisplay {
 		scale();
 	}
 
+	/// Open the element (display[mainImageUrl])
 	void expand() {
 		open = true;
 		parent.style.backgroundImage = "url($mainImageUrl)";

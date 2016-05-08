@@ -1,11 +1,19 @@
 part of coUwiki;
 
+/**
+ * Handles the search box and typeahead.
+ */
 class Search {
+	/// Class applied to the search input when the typeahead is displayed
 	static final String TYPEAHEAD_OPEN = "typeahead-open";
 
+	/// Input box
 	TextInputElement input = querySelector("#search");
+
+	/// Typeahead element
 	DivElement typeahead;
 
+	/// Start listening for input
 	Search() {
 		input.onKeyUp.listen((_) => updateTypeahead());
 
@@ -16,12 +24,14 @@ class Search {
 		});
 	}
 
+	/// Display a typeahead based on the current input
 	void updateTypeahead() {
 		makeTypeahead(getMatchingObjects(input.value.trim()));
 	}
 
-	Map<String, List<GameObject>> getMatchingObjects(String needle) {
-		Map<String, List<GameObject>> result = new Map();
+	/// Get objects that match the current input
+	Map<GameObjectType, List<GameObject>> getMatchingObjects(String needle) {
+		Map<GameObjectType, List<GameObject>> result = new Map();
 
 		// No entry means no matches
 		if (needle.length == 0) {
@@ -30,8 +40,7 @@ class Search {
 
 		// For each main game object type
 		data.dataset.keys.toList()
-			..sort((String a, String b) => a.compareTo(b))
-			..forEach((String key) {
+			..forEach((GameObjectType key) {
 				// Find matches
 				result[key] = data.dataset[key].where((GameObject object) {
 					return levenshtein(object.name, needle, caseSensitive: false) <= 3
@@ -51,7 +60,8 @@ class Search {
 		return result;
 	}
 
-	void makeTypeahead(Map<String, List<GameObject>> items) {
+	/// Assemble and display the typeahead element
+	void makeTypeahead(Map<GameObjectType, List<GameObject>> items) {
 		closeTypeahead();
 
 		if (items.length == 0) {
@@ -63,13 +73,13 @@ class Search {
 
 		List<UListElement> sections = new List();
 
-		items.forEach((String category, List<GameObject> contents) {
+		items.forEach((GameObjectType category, List<GameObject> contents) {
 			if (contents.length > 0) {
 				UListElement section = new UListElement()
 					..classes.add("section")
 					..append(
 						new LIElement()
-							..text = ucfirst(category)
+							..text = typeString(category)
 					);
 
 				contents.forEach((GameObject object) {
@@ -104,6 +114,8 @@ class Search {
 		input.classes.add(TYPEAHEAD_OPEN);
 	}
 
+	/// Remove the typeahead element from the DOM.
+	/// Will also empty the search input if clear is set to true.
 	void closeTypeahead([bool clear = false]) {
 		typeahead?.remove();
 		input.classes.remove(TYPEAHEAD_OPEN);
@@ -113,5 +125,6 @@ class Search {
 		}
 	}
 
+	/// Weather the typeahead is currently displayed
 	bool get typeaheadOpen => input.classes.contains(TYPEAHEAD_OPEN);
 }

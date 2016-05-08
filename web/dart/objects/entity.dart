@@ -1,19 +1,16 @@
 part of coUwiki;
 
 class Entity extends GameObject {
-	static Entity find(String id) {
-		try {
-			return data.dataset["entity"].singleWhere((Entity entity) {
-				return entity.id == id;
-			});
-		} catch(_) {
-			return null;
-		}
-	}
-
+	/// Spritesheets
 	List<Map<String, dynamic>> states;
+
+	/// State the server set it to when creating
 	String currentState;
+
+	/// Phrases said by the entity, sorted by trigger action
 	Map<String, List<String>> responses;
+
+	/// Items the entity sells. Only relevant to vendors.
 	List<String> sellItems;
 
 	Entity(String id,
@@ -25,20 +22,21 @@ class Entity extends GameObject {
 		this.sellItems
 	) : super(GameObjectType.Entity, id, name, category, null) {
 		if (category == "Shrine") {
-			iconUrl = SHRINE_IMG;
+			iconUrl = ImgRef.SHRINE;
 		} else if (name.contains("Street Spirit") || name.contains("Vendor")) {
-			iconUrl = CURRANT_IMG;
+			iconUrl = ImgRef.CURRANT;
 		} else {
 			try {
 				// Check if there is a static entity image available
-				HttpRequest.request("$ENTITY_URL/$name.png", mimeType: MIME_PNG);
-				iconUrl = Uri.encodeFull("$ENTITY_URL/$name.png");
+				HttpRequest.request("${ServerUrl.ENTITY}/$name.png", mimeType: MIME_PNG);
+				iconUrl = Uri.encodeFull("${ServerUrl.ENTITY}/$name.png");
 			} catch (_) {
-				iconUrl = ENTITY_IMG;
+				iconUrl = ImgRef.ENTITY;
 			}
 		}
 	}
 
+	/// Get the spritesheet requested, or the current one if not specified.
 	Map<String, dynamic> getState([String stateName]) {
 		if (stateName == null && currentState != null) {
 			return getState(currentState);
@@ -55,6 +53,7 @@ class Entity extends GameObject {
 		return null;
 	}
 
+	@override
 	DivElement toPage() {
 		DivElement parent = super.toPage();
 

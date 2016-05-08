@@ -1,13 +1,28 @@
 part of coUwiki;
 
 class Item extends GameObject {
+	/// Image URL of spritesheet (1, 2, 3, 4)
 	String spriteUrl;
+
+	/// About the item
 	String description;
+
+	/// Currant cost of the item, 0 for "priceless"
 	int price;
+
+	/// How many can fit in a stack
 	int stacksTo;
+
+	/// How many icons are in the spriteUrl
 	int iconNum;
+
+	/// Whether the item can hold other items
 	bool isContainer;
+
+	/// How many items it can hold
 	int subSlots;
+
+	/// Energy, Mood, Img, etc. given when consumed
 	Map<String, int> consumeValues;
 
 	Item(
@@ -25,6 +40,7 @@ class Item extends GameObject {
 		this.consumeValues
 	) : super(GameObjectType.Item, id, name, category, iconUrl);
 
+	@override
 	DivElement toPage() {
 		DivElement parent = super.toPage();
 

@@ -1,14 +1,17 @@
 part of coUwiki;
 
+/**
+ * Page that lists multiple [GameObject]s
+ */
 class ListPage extends Page {
+	/// List of objects to display on the page.
 	List<GameObject> objects;
 
 	/// Lists objects of one type
 	/// where passing the object to the test function returns true
-	ListPage.filter(dynamic type, Function test) {
-		String typeStr = (type is String ? type : typeString(type)).toLowerCase();
+	ListPage.filter(GameObjectType type, Function test) {
 		try {
-			objects = data.dataset[typeStr].where((GameObject object) {
+			objects = data.dataset[type].where((GameObject object) {
 				return test(object);
 			}).toList();
 

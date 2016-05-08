@@ -1,14 +1,29 @@
 part of coUwiki;
 
 class Street extends GameObject {
+	/// id of the containing hub
 	String hubId;
+
+	/// Entities on the street
 	List<GameObject> contents;
+
+	/// True if the street is hidden from the map, false if displayed
 	bool hidden;
+
+	/// Whether the Magic Rock will rescue players for free
 	bool broken;
+
+	/// Whether the street has a mailbox on it
 	bool hasMailbox;
+
+	/// Type of vendor on the street, or null
 	String vendor;
+
+	/// Type of shrine on the street, or null
 	String shrine;
-	List<Map<String, dynamic>> entityCache;
+
+	/// Don't download a list of streetEntities every time
+	List<Map<String, dynamic>> _entityCache;
 
 	Street(
 		String id,
@@ -19,8 +34,9 @@ class Street extends GameObject {
 		this.hasMailbox,
 		this.vendor,
 		this.shrine
-	) : super(GameObjectType.Street, id, name, null, STREETS_IMG);
+	) : super(GameObjectType.Street, id, name, null, ImgRef.STREETS);
 
+	@override
 	DivElement toPage() {
 		DivElement parent = super.toPage();
 		parent.querySelector(".breadcrumb").append(
@@ -71,7 +87,7 @@ class Street extends GameObject {
 					..append(entityList);
 
 				counts.forEach((String type, int number) {
-					Entity entityBase = Entity.find(type);
+					Entity entityBase = GameObject.find("entity/$type");
 					LIElement listItem = new LIElement();
 					if (entityBase != null) {
 						listItem.append(
@@ -90,6 +106,7 @@ class Street extends GameObject {
 		return parent;
 	}
 
+	/// Get the TSID in G... form
 	String get tsidG {
 		if (id.startsWith("L")) {
 			return id.replaceFirst("L", "G");
@@ -98,17 +115,20 @@ class Street extends GameObject {
 		}
 	}
 
+	/// Get the TSID in L... form
 	String get tsidL => tsidG.replaceFirst("G", "L");
 
-	Hub get hub => Hub.find(hubId);
+	/// Get a reference to the hub containing this street
+	Hub get hub => GameObject.find("hub/$hubId");
 
+	/// Get how many of each entity are on the street
 	Future<Map<String, int>> countEntities([bool excludeUnknown = false]) async {
 		List<Map<String, dynamic>> entities = await getEntities();
 		Map<String, int> counts = new Map();
 
 		entities.forEach((Map<String, dynamic> entity) {
 			String type = entity["type"];
-			if (!excludeUnknown || (excludeUnknown && Entity.find(type) != null)) {
+			if (!excludeUnknown || (excludeUnknown && GameObjectType.find("entity/$type") != null)) {
 				counts[type] = (counts[type] != null ? counts[type] + 1 : 1);
 			}
 		});
@@ -116,21 +136,23 @@ class Street extends GameObject {
 		return counts;
 	}
 
+	/// Download streetEntities from the server and then cache them.
+	/// More than one of the same entity will be listed multiple times.
 	Future<List<Map<String, dynamic>>> getEntities() async {
-		if (entityCache != null) {
-			return entityCache;
+		if (_entityCache != null) {
+			return _entityCache;
 		} else {
 			List<Map<String, dynamic>> result = new List();
 
 			String json;
 			try {
-				json = await HttpRequest.getString("$SERVER_URL/getEntities?tsid=$tsidG&token=$RS_TOKEN");
+				json = await HttpRequest.getString("${ServerUrl.SERVER}/getEntities?tsid=$tsidG&token=$RS_TOKEN");
 			} catch(_) {
 				return result;
 			}
 			result = JSON.decode(json)["entities"];
 
-			entityCache = result;
+			_entityCache = result;
 			return result;
 		}
 	}

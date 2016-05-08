@@ -1,6 +1,7 @@
 part of coUwiki;
 
 class Achievement extends GameObject {
+	/// Description (how to earn)
 	String description;
 
 	Achievement(
@@ -11,6 +12,7 @@ class Achievement extends GameObject {
 		this.description
 	) : super(GameObjectType.Achievement, id, name, category, iconUrl);
 
+	@override
 	DivElement toPage() {
 		DivElement parent = super.toPage();
 

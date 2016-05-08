@@ -1,9 +1,16 @@
 part of coUwiki;
 
 class Skill extends GameObject {
+	/// Descriptions of what is gained at each level
 	List<String> descriptions;
+
+	/// How many points are needed for each level
 	List<int> levels;
+
+	/// The icons for each level
 	List<String> iconUrls;
+
+	/// Associated giants, index 0 is the primary giant
 	List<String> giants;
 
 	Skill(
@@ -18,6 +25,7 @@ class Skill extends GameObject {
 		iconUrl = iconUrls.first;
 	}
 
+	@override
 	DivElement toPage() {
 		DivElement parent = super.toPage()
 			..append(new HeadingElement.h2()..text = "Levels");
