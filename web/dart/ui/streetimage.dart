@@ -17,7 +17,7 @@ class StreetImageDisplay {
 
 	Completer<StreetImageDisplay> ready = new Completer();
 
-	StreetImageDisplay.auto(String tsid) {
+	StreetImageDisplay(String tsid) {
 		// Format TSID correctly (start with G)
 		this.tsid = (tsid.startsWith("L") ? tsid.replaceFirst("L", "G") : tsid);
 

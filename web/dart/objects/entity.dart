@@ -1,6 +1,16 @@
 part of coUwiki;
 
 class Entity extends GameObject {
+	static Entity find(String id) {
+		try {
+			return data.dataset["entity"].singleWhere((Entity entity) {
+				return entity.id == id;
+			});
+		} catch(_) {
+			return null;
+		}
+	}
+
 	List<Map<String, dynamic>> states;
 	String currentState;
 	Map<String, List<String>> responses;
@@ -49,14 +59,16 @@ class Entity extends GameObject {
 		DivElement parent = super.toPage();
 
 		// Image
-		if (getState() != null) {
+
+		Map<String, dynamic> state = getState();
+		if (state != null) {
 			parent.append(
 				new DivElement()
 					..classes = ["entity-image", "center-block", "item-header"]
-					..style.backgroundImage = "url(${getState()["url"]})"
-					..style.backgroundSize = "${getState()["sheetWidth"]}px ${getState()["sheetHeight"]}px"
-					..style.width = "${getState()["frameWidth"]}px"
-					..style.height = "${getState()["frameHeight"]}px"
+					..style.backgroundImage = "url(${state["url"]})"
+					..style.backgroundSize = "${state["sheetWidth"]}px ${state["sheetHeight"]}px"
+					..style.width = "${state["frameWidth"]}px"
+					..style.height = "${state["frameHeight"]}px"
 			);
 
 			parent.append(new HRElement());
