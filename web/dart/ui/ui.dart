@@ -24,7 +24,7 @@ class UI {
 		// Set up search
 		search = new Search();
 
-		// Go to ininially requested page
+		// Go to initially requested page
 		_goToCurrentHash();
 
 		// Handle URL updates

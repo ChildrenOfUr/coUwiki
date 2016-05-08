@@ -7,9 +7,17 @@ class Search {
 	DivElement typeahead;
 
 	Search() {
-		input.onKeyUp.listen((_) {
-			makeTypeahead(getMatchingObjects(input.value.trim()));
+		input.onKeyUp.listen((_) => updateTypeahead());
+
+		window.onResize.listen((_) {
+			if (typeaheadOpen) {
+				updateTypeahead();
+			}
 		});
+	}
+
+	void updateTypeahead() {
+		makeTypeahead(getMatchingObjects(input.value.trim()));
 	}
 
 	Map<String, List<GameObject>> getMatchingObjects(String needle) {
@@ -32,11 +40,11 @@ class Search {
 
 				// Sort results in each category by relevance
 				result[key].sort((GameObject a, GameObject b) {
-					return levenshtein(a.name, needle, caseSensitive: false)
-						- levenshtein(b.name, needle, caseSensitive: false);
+					return levenshtein(b.name, needle, caseSensitive: false)
+						- levenshtein(a.name, needle, caseSensitive: false);
 				});
 
-				// Then only display the top 10
+				// Then only display the top 10 of each type
 				result[key] = result[key].sublist(0, min(result[key].length, 10));
 			});
 
@@ -52,6 +60,8 @@ class Search {
 
 		typeahead = new DivElement()
 			..classes.add("typeahead");
+
+		List<UListElement> sections = new List();
 
 		items.forEach((String category, List<GameObject> contents) {
 			if (contents.length > 0) {
@@ -78,9 +88,13 @@ class Search {
 					section.append(item);
 				});
 
-				typeahead.append(section);
+				sections.add(section);
 			}
 		});
+
+		// Sort sections with more matches at the top
+		sections.sort((UListElement a, UListElement b) => b.children.length - a.children.length);
+		sections.forEach((UListElement section) => typeahead.append(section));
 
 		int yOffset = input.offsetTop + input.clientHeight + window.scrollY;
 		typeahead.style
@@ -98,4 +112,6 @@ class Search {
 			input.value = "";
 		}
 	}
+
+	bool get typeaheadOpen => input.classes.contains(TYPEAHEAD_OPEN);
 }
