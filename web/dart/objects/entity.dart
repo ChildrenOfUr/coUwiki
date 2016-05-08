@@ -19,8 +19,7 @@ class Entity extends GameObject {
 		this.states,
 		this.currentState,
 		this.responses,
-		this.sellItems
-	) : super(GameObjectType.Entity, id, name, category, null) {
+		this.sellItems) : super(GameObjectType.Entity, id, name, category, null) {
 		if (category == "Shrine") {
 			iconUrl = ImgRef.SHRINE;
 		} else if (name.contains("Street Spirit") || name.contains("Vendor")) {
@@ -53,29 +52,77 @@ class Entity extends GameObject {
 		return null;
 	}
 
+	/// Get a sized, single sprite icon image.
+	/// If state is set, it will be used, otherwise the server-set state.
+	/// If fitTo is set (px), it will be scaled to fit in that dimension
+	DivElement getSpriteImage({Map<String, dynamic> useState, int fitTo}) {
+		Map<String, dynamic> state = useState ?? getState();
+
+		if (state == null) {
+			return null;
+		}
+
+		String normalBgSize = "${state["sheetWidth"]}px ${state["sheetHeight"]}px";
+		String scaledBgSize;
+		double newFrameWidth;
+		double newFrameHeight;
+		double fixMargin;
+
+		if (fitTo != null) {
+			// Find scale factor, comparing size with a single frame
+			double scaleX = fitTo / state["frameWidth"];
+			double scaleY = fitTo / state["frameHeight"];
+			double scale = min(scaleX, scaleY);
+
+			// Adjust background size based on frame scale
+			double bgWidth = state["sheetWidth"] * scale;
+			double bgHeight = state["sheetHeight"] * scale;
+			scaledBgSize = "${bgWidth}px ${bgHeight}px";
+
+			if (state["frameHeight"] > state["frameWidth"]) {
+				newFrameWidth = scale * state["frameWidth"];
+				fixMargin = (fitTo - newFrameWidth) / 2;
+			} else if (state["frameWidth"] > state["frameHeight"]) {
+				newFrameHeight = scale * state["frameHeight"];
+				fixMargin = (fitTo - newFrameHeight) / 2;
+			}
+		}
+
+		DivElement image = new DivElement()
+			..classes = ["entity-image"]
+			..style.backgroundImage = "url(${state["url"]})"
+			..style.backgroundSize = scaledBgSize ?? normalBgSize
+			..style.width = "${newFrameWidth ?? fitTo ?? state["frameWidth"]}px"
+			..style.height = "${newFrameHeight ?? fitTo ?? state["frameHeight"]}px";
+
+		// Center narrow sprites with margins
+		if (fixMargin != null) {
+			image.style
+				..marginLeft = "${fixMargin}px"
+				..marginRight = "${fixMargin}px";
+		}
+
+		return image;
+	}
+
 	@override
 	DivElement toPage() {
 		DivElement parent = super.toPage();
 
 		// Image
-
-		Map<String, dynamic> state = getState();
-		if (state != null) {
-			parent.append(
-				new DivElement()
-					..classes = ["entity-image", "center-block", "item-header"]
-					..style.backgroundImage = "url(${state["url"]})"
-					..style.backgroundSize = "${state["sheetWidth"]}px ${state["sheetHeight"]}px"
-					..style.width = "${state["frameWidth"]}px"
-					..style.height = "${state["frameHeight"]}px"
-			);
-
-			parent.append(new HRElement());
+		if (getState() != null) {
+			parent
+				..append(
+					getSpriteImage()
+						..classes.addAll(["center-block", "item-header"])
+				)
+				..append(new HRElement());
 		}
 
 		// Items
 		if (sellItems != null && sellItems.length > 0) {
-			parent.append(new HeadingElement.h2()..text = "Merchandise");
+			parent.append(new HeadingElement.h2()
+				..text = "Merchandise");
 			DivElement items = new DivElement()
 				..classes = ["item-box-list"];
 			sellItems.forEach((String itemType) {

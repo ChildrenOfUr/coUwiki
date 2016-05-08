@@ -27,23 +27,37 @@ class ListPage extends Page {
 	}
 
 	DivElement toPage() {
-		DivElement _makeListItem(String imgSrc, String text, Function onClick) =>
-			new DivElement()
-				..classes = ["col-xs-6", "col-sm-3", "col-lg-2", "listed-object"]
-				..append(new ImageElement(src: imgSrc))
+		DivElement _makeListItem(dynamic img, String text, Function onClick) {
+			DivElement listItem = new DivElement()
+				..classes = ["col-xs-6", "col-sm-3", "col-lg-2", "listed-object"];
+
+			if (img is String) {
+				listItem.append(new ImageElement(src: img));
+			} else if (img is Element) {
+				listItem.append(img);
+			}
+
+			listItem
 				..append(new SpanElement()..text = text)
 				..onClick.listen((MouseEvent event) => onClick(event));
+			return listItem;
+		}
 
 		DivElement parent = new DivElement()
 			..classes = ["row", "object-list"];
 
 		objects.forEach((GameObject object) {
-			parent.append(_makeListItem(
-				object.iconUrl, object.name,
-				(_) => object.navigationHandler != null
+			var image = (object is Entity && object.getState() != null)
+				? object.getSpriteImage(fitTo: 80)
+				: object.iconUrl;
+
+			Function clickHandler = (_) {
+				(object.navigationHandler != null)
 					? object.navigationHandler(object)
-					: Page.display(object)
-			));
+					: Page.display(object);
+			};
+
+			parent.append(_makeListItem(image, object.name, clickHandler));
 		});
 
 		return parent;

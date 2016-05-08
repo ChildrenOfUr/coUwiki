@@ -83,13 +83,29 @@ class Search {
 					);
 
 				contents.forEach((GameObject object) {
-					LIElement item = new LIElement()
-						..append(
+					LIElement item = new LIElement();
+
+					if (object is Entity && object.getState() != null) {
+						// Entity image handling (spritesheets)
+						item.append(
+							object.getSpriteImage(fitTo: 40)
+								..classes.add("img")
+						);
+					} else {
+						// Normal image handling
+						item.append(
 							new DivElement()
 								..classes = ["img"]
 								..style.backgroundImage = "url(${object.iconUrl})"
+						);
+					}
+
+					item
+						..append(
+							new DivElement()
+								..classes = ["text"]
+								..text = object.name
 						)
-						..appendText(object.name)
 						..onClick.first.then((_) {
 							closeTypeahead(true);
 							Page.display(object);

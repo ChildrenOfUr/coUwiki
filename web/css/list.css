@@ -16,7 +16,8 @@
     color: inherit;
 }
 
-.listed-object img {
+.listed-object img,
+.listed-object .entity-image {
     display: inline-block;
     height: 80px;
     width: auto;

@@ -128,7 +128,7 @@ class Street extends GameObject {
 
 		entities.forEach((Map<String, dynamic> entity) {
 			String type = entity["type"];
-			if (!excludeUnknown || (excludeUnknown && GameObjectType.find("entity/$type") != null)) {
+			if (!excludeUnknown || (excludeUnknown && GameObject.find("entity/$type") != null)) {
 				counts[type] = (counts[type] != null ? counts[type] + 1 : 1);
 			}
 		});
