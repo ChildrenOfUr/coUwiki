@@ -14,7 +14,7 @@ class Hub extends GameObject {
 	bool snowyWeather;
 
 	/// Whether players can triple jump here
-	bool tripleJumping;
+	String physics;
 
 	Hub(
 		String id,
@@ -23,7 +23,7 @@ class Hub extends GameObject {
 		this.playersHaveLetters,
 		this.disableWeather,
 		this.snowyWeather,
-		this.tripleJumping
+		this.physics
 	) : super(GameObjectType.Hub, id, name, null, "${ServerUrl.HUBIMG}/$name.jpg");
 
 	@override
@@ -52,8 +52,8 @@ class Hub extends GameObject {
 			parent.append(makeAlert("warning", "When it's raining, it snows here."));
 		}
 
-		if (!tripleJumping) {
-			parent.append(makeAlert("danger", "You can't triple-jump."));
+		if (physics != "normal") {
+			parent.append(makeAlert("warning", "You will experience $physics physics."));
 		}
 
 		parent

@@ -10,6 +10,9 @@ class Data {
 	/// Stored data after downloading, categorized by type
 	Map<GameObjectType, List<GameObject>> dataset = new Map();
 
+	/// Stored world map edges (for GPS)
+	List<Map<String, dynamic>> worldEdges = new List();
+
 	/// Start caching and downloading data
 	Data() {
 		cache = new Cache();
@@ -25,6 +28,7 @@ class Data {
 			await _loadItems();
 			await _loadStreets();
 			await _loadSkills();
+			await _loadWorldEdges();
 			cache.updateDate();
 		} catch(e) {
 			UI.showLoadError();
@@ -145,7 +149,7 @@ class Data {
 				hubData["players_have_letters"] ?? false,
 				hubData["disable_eather"] ?? false,
 				hubData["snowy_weather"] ?? false,
-				hubData["triple_jumping"] ?? true
+				hubData["physics"] ?? "normal"
 			));
 		});
 	}
@@ -173,5 +177,12 @@ class Data {
 				skillData["giants"]
 			));
 		});
+	}
+
+	/// Download and parse the world graph from the json folder
+	Future _loadWorldEdges() async {
+		String json = await HttpRequest.getString("json/worldGraph.json");
+		List<Map<String, dynamic>> edges = JSON.decode(json)["edges"];
+		worldEdges = edges;
 	}
 }

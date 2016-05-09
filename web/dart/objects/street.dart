@@ -1,6 +1,17 @@
 part of coUwiki;
 
 class Street extends GameObject {
+	/// Get the TSID by a street's name
+	static String getTsid(String name) {
+		for (Street street in data.dataset[GameObjectType.Street]) {
+			if (street.name == name) {
+				return street.id;
+			}
+		}
+
+		return null;
+	}
+
 	/// id of the containing hub
 	String hubId;
 
@@ -103,6 +114,25 @@ class Street extends GameObject {
 			}
 		});
 
+		List<Street> connecting = getConnectingStreets();
+		if (connecting.length > 0) {
+			parent
+				..append(new HRElement())
+				..append(new HeadingElement.h2()..text = "Connecting Streets");
+
+			UListElement list = new UListElement();
+
+			connecting.forEach((Street street) {
+				list.append(new LIElement()
+					..append(new AnchorElement(href: street.path.hashPath)
+						..text = street.name
+					)
+				);
+			});
+
+			parent.append(list);
+		}
+
 		return parent;
 	}
 
@@ -155,5 +185,24 @@ class Street extends GameObject {
 			_entityCache = result;
 			return result;
 		}
+	}
+
+	/// Get a list of connecting streets
+	List<Street> getConnectingStreets() {
+		bool _listContainsStreet(String name, List<Street> list) {
+			return list.where((Street s) => s.name == name).toList().length > 0;
+		}
+
+		List<Street> streets = new List();
+		data.worldEdges.forEach((Map<String, dynamic> edge) {
+			String start = edge["start"];
+			String end = edge["end"];
+			if (start == this.name && !_listContainsStreet(start, streets)) {
+				streets.add(GameObject.find("street/${getTsid(end)}"));
+			} else if (end == this.name && !_listContainsStreet(end, streets)) {
+				streets.add(GameObject.find("street/${getTsid(start)}"));
+			}
+		});
+		return streets;
 	}
 }
