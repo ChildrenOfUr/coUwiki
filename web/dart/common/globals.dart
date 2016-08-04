@@ -26,7 +26,7 @@ final String MIME_PNG = "image/png";
 class ServerUrl {
 	static final String ENTITY = "http://childrenofur.com/assets/staticEntityImages";
 	static final String HUBIMG = "http://childrenofur.com/assets/hubImages";
-	static final String SERVER = "http:///robertmcdermot.com:8181";
+	static final String SERVER = "http://server.childrenofur.com:8181";
 	static final String STREET = "https://raw.githubusercontent.com/ChildrenOfUr/CAT422-glitch-location-viewer/master/locations";
 }
 
