@@ -5,7 +5,7 @@ Data data;
 UI ui;
 
 /// Release (clears cache if this changes)
-final String RELEASE = "1.0.1";
+final String RELEASE = "1.0.2";
 
 /// Bundled image URLs
 class ImgRef {

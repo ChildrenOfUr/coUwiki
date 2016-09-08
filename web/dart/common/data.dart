@@ -49,6 +49,10 @@ class Data {
 		}
 
 		JSON.decode(json).values.forEach((Map<String, dynamic> achvData) {
+			if (achvData == null) {
+				return;
+			}
+
 			dataset[GameObjectType.Achievement].add(new Achievement(
 				achvData["id"],
 				achvData["name"],
@@ -72,6 +76,10 @@ class Data {
 		}
 
 		JSON.decode(json).forEach((Map<String, dynamic> entityData) {
+			if (entityData == null) {
+				return;
+			}
+
 			dataset[GameObjectType.Entity].add(new Entity(
 				entityData["id"],
 				entityData["name"],
@@ -97,6 +105,10 @@ class Data {
 		}
 
 		JSON.decode(json).forEach((Map<String, dynamic> itemData) {
+			if (itemData == null) {
+				return;
+			}
+
 			dataset[GameObjectType.Item].add(new Item(
 				itemData["itemType"],
 				itemData["name"],
@@ -129,6 +141,10 @@ class Data {
 		}
 
 		JSON.decode(json)["streets"].forEach((String streetName, Map<String, dynamic> streetData) {
+			if (streetData == null) {
+				return;
+			}
+
 			dataset[GameObjectType.Street].add(new Street(
 				streetData["tsid"],
 				streetName,
@@ -142,6 +158,10 @@ class Data {
 		});
 
 		JSON.decode(json)["hubs"].forEach((String hubId, Map<String, dynamic> hubData) {
+			if (hubData == null) {
+				return;
+			}
+
 			dataset[GameObjectType.Hub].add(new Hub(
 				hubId,
 				hubData["name"],
@@ -167,6 +187,10 @@ class Data {
 		}
 
 		JSON.decode(json).forEach((Map<String, dynamic> skillData) {
+			if (skillData == null) {
+				return;
+			}
+
 			dataset[GameObjectType.Skill].add(new Skill(
 				skillData["id"],
 				skillData["name"],
