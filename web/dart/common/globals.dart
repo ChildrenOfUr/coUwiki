@@ -17,6 +17,7 @@ class ImgRef {
 	static final String SHRINE = "img/shrine.svg";
 	static final String STREETS = "img/signpost.png";
 	static final String SKILLS = "img/skills.png";
+	static final String BLANK_MAP = "${ServerUrl.HUBIMG}/fake_island.jpg";
 }
 
 /// MIME type for downloaded PNG files

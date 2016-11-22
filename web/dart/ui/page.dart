@@ -16,7 +16,7 @@ class Page {
 			// Asked to display an Element, this is easy
 			element = toDisplay;
 
-		} else if (toDisplay is GameObject) {
+		} else if (toDisplay is GameObject || toDisplay is Page) {
 
 			// Asked to display a GameObject, run toPage() on it
 			element = toDisplay.toPage();

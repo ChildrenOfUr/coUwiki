@@ -145,6 +145,10 @@ class Data {
 				return;
 			}
 
+			if (!(streetData["in_game"] ?? true)) {
+				return;
+			}
+
 			dataset[GameObjectType.Street].add(new Street(
 				streetData["tsid"],
 				streetName,
@@ -159,6 +163,10 @@ class Data {
 
 		JSON.decode(json)["hubs"].forEach((String hubId, Map<String, dynamic> hubData) {
 			if (hubData == null) {
+				return;
+			}
+
+			if (!(hubData["in_game"] ?? true)) {
 				return;
 			}
 
