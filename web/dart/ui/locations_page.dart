@@ -21,6 +21,7 @@ class LocationsPage extends Page {
 			parent.append(new DivElement()
 				..classes = ["col-xs-12", "col-sm-2"]
 				..append(new AnchorElement(href: hub.path.toString())
+					..classes = ["location-list-hub-name", "lead"]
 					..text = hub.name));
 
 			// Image

@@ -10,9 +10,7 @@ class UI {
 		new GameObject.fake("Entities", ImgRef.ENTITY, (_) => Page.display("list/entity")),
 		new GameObject.fake("Items", ImgRef.ITEM, (_) => Page.display("list/item")),
 		new GameObject.fake("Locations", ImgRef.LOCATIONS, (_) => Page.display(new LocationsPage())),
-		new GameObject.fake("Regions", ImgRef.BLANK_MAP, (_) => Page.display("list/hub")),
 		new GameObject.fake("Skills", ImgRef.SKILLS, (_) => Page.display("list/skill")),
-		new GameObject.fake("Streets", ImgRef.STREETS, (_) => Page.display("list/street")),
 	]).toPage();
 
 	/// Open a message explaining why it won't load (server down?)
