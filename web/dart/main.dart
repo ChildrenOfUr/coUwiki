@@ -27,6 +27,7 @@ part "objects/street.dart";
 part "ui/listpage.dart";
 part "ui/locations_page.dart";
 part "ui/page.dart";
+part "ui/scroll.dart";
 part "ui/search.dart";
 part "ui/streetimage.dart";
 part "ui/ui.dart";

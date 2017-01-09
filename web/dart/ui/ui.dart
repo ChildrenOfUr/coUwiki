@@ -30,6 +30,12 @@ class UI {
 		// Set up search
 		search = new Search();
 
+		// Start caching page positions
+		Scrolling.readStore();
+		window
+			..onScroll.listen((_) => Scrolling.save())
+			..onBeforeUnload.listen((_) => Scrolling.save());
+
 		// Go to initially requested page
 		_goToCurrentHash();
 

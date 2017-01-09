@@ -58,6 +58,8 @@ class Page {
 
 		}
 
+		Scrolling.save();
+
 		setHash(toDisplay);
 
 		if (clear) {
@@ -65,5 +67,9 @@ class Page {
 		}
 
 		PAGE_CONTAINER.append(element);
+
+//		new Future.delayed(new Duration(milliseconds: 100)).then((_) => Scrolling.restore());
+
+		Scrolling.restore();
 	}
 }
