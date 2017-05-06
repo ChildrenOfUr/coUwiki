@@ -56,10 +56,10 @@ class StreetImageDisplay {
 			Map<String, dynamic> data = JSON.decode(json);
 
 			loadingImageSize = new Point(data["loading_image"]["w"], data["loading_image"]["h"]);
-			loadingImageUrl = data["loading_image"]["url"];
+			loadingImageUrl = proxyImage('streets', data["loading_image"]["url"]);
 
 			mainImageSize = new Point(data["main_image"]["w"], data["main_image"]["h"]);
-			mainImageUrl = data["main_image"]["url"];
+			mainImageUrl = proxyImage('streets', data["main_image"]["url"]);
 
 			return true;
 		} catch (e) {

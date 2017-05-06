@@ -22,7 +22,7 @@ class Skill extends GameObject {
 		this.iconUrls,
 		this.giants
 	) : super(GameObjectType.Skill, id, name, category, null) {
-		iconUrl = iconUrls.first;
+		iconUrl = proxyImage('skills', iconUrls.first);
 	}
 
 	@override
@@ -36,7 +36,7 @@ class Skill extends GameObject {
 				..classes = ["media-left", "media-top", "skill-icon"]
 				..append(
 					new Element.a()
-						..append(new ImageElement(src: iconUrls[l])
+						..append(new ImageElement(src: proxyImage('skills', iconUrls[l]))
 							..classes = ["media-object"]
 						)
 				);

@@ -25,9 +25,9 @@ final String MIME_PNG = "image/png";
 
 /// Server connections
 class ServerUrl {
-	static final String ENTITY = "http://childrenofur.com/assets/staticEntityImages";
-	static final String HUBIMG = "http://childrenofur.com/assets/hubImages";
-	static final String SERVER = "http://server.childrenofur.com:8181";
+	static final String ENTITY = "//childrenofur.com/assets/staticEntityImages";
+	static final String HUBIMG = "//childrenofur.com/assets/hubImages";
+	static final String SERVER = "https://server.childrenofur.com:8181";
 	static final String STREET = "https://raw.githubusercontent.com/ChildrenOfUr/CAT422-glitch-location-viewer/master/locations";
 }
 

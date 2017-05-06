@@ -59,3 +59,16 @@ GameObjectType stringType(String type) {
 		return null;
 	}
 }
+
+/// Request a resource through CoU
+String proxyImage(String type, String url) {
+	if (type == null || url == null) {
+		return null;
+	}
+
+	if (url.contains('childrenofur')) {
+		return url;
+	}
+
+	return '//childrenofur.com/assets/$type/?url=$url';
+}

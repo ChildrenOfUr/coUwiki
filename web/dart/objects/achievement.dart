@@ -10,7 +10,9 @@ class Achievement extends GameObject {
 		String category,
 		String iconUrl,
 		this.description
-	) : super(GameObjectType.Achievement, id, name, category, iconUrl);
+	) : super(GameObjectType.Achievement, id, name, category, iconUrl) {
+		iconUrl = proxyImage('achievements', iconUrl);
+	}
 
 	@override
 	DivElement toPage() {
