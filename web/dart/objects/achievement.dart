@@ -11,7 +11,7 @@ class Achievement extends GameObject {
 		String iconUrl,
 		this.description
 	) : super(GameObjectType.Achievement, id, name, category, iconUrl) {
-		iconUrl = proxyImage('achievements', iconUrl);
+		this.iconUrl = proxyImage('achievements', iconUrl);
 	}
 
 	@override
